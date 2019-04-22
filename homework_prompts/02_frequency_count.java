@@ -25,14 +25,6 @@ class Problems {
    * 2, 3] [1, 2, 3, 1, 2] --> [1, 2, 3]
    */
 
-  /*
-   * create arraylist create hash for seen integers
-   * 
-   * loop from 0 to end of array if not in hash add to arraylist
-   * 
-   * return array list
-   */
-
   public static ArrayList unique(int[] arr) {
     ArrayList<Integer> uniqueIntegers = new ArrayList<>();
     HashSet<Integer> seen = new HashSet<>();
@@ -69,8 +61,24 @@ class Problems {
    */
 
   public static HashMap wordCount(String sentence) {
-    // YOUR WORK HERE
-    return new HashMap<String, Integer>();
+    if (sentence.isEmpty()) {
+      return new HashMap<String, Integer>();
+    }
+
+    String[] words = sentence.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
+
+    HashMap<String, Integer> wordFrequency = new HashMap<>();
+
+    for (String word : words) {
+      if (wordFrequency.containsKey(word)) {
+        int frequency = wordFrequency.get(word);
+        wordFrequency.put(word, frequency + 1);
+      } else {
+        wordFrequency.put(word, 1);
+      }
+    }
+
+    return wordFrequency;
   }
 
   /**
@@ -89,8 +97,27 @@ class Problems {
    */
 
   public static int rgb(String string) {
-    // YOUR WORK HERE
-    return -1;
+    int[] rgbCount = new int[3];
+
+    for (int index = 0; index < string.length(); index++) {
+      if (string.charAt(index) == 'r') {
+        rgbCount[0]++;
+      } else if (string.charAt(index) == 'g') {
+        rgbCount[1]++;
+      } else if (string.charAt(index) == 'b') {
+        rgbCount[2]++;
+      }
+    }
+
+    int lowestCount = rgbCount[0];
+
+    for (int index = 1; index < rgbCount.length; index++) {
+      if (lowestCount > rgbCount[index]) {
+        lowestCount = rgbCount[index];
+      }
+    }
+
+    return lowestCount;
   }
 
   /**
@@ -109,8 +136,18 @@ class Problems {
    */
 
   public static ArrayList missingNumber(int n, int[] arr) {
-    // YOUR WORK HERE
-    return new ArrayList<>();
+    ArrayList<Integer> missingNumbers = new ArrayList<>();
+    HashSet<Integer> seen = new HashSet<>();
+    for (int value : arr) {
+      seen.add(value);
+    }
+
+    for (int value = 1; value <= n; value++) {
+      if (!seen.contains(value)) {
+        missingNumbers.add(value);
+      }
+    }
+    return missingNumbers;
   }
 
   /**
@@ -126,8 +163,26 @@ class Problems {
    */
 
   public static String letterSort(String string) {
-    // YOUR WORK HERE
-    return "";
+    StringBuilder sortedLetters = new StringBuilder();
+    int[] charactersFrequency = new int[26];
+
+    for (int index = 0; index < string.length(); index++) {
+      char currentChar = string.charAt(index);
+      charactersFrequency[currentChar - 97]++;
+    }
+
+    int index = 0;
+    while (index < 26) {
+      if (charactersFrequency[index] > 0) {
+        char letter = (char) (index + 97);
+        sortedLetters.append(letter);
+        charactersFrequency[index]--;
+      } else {
+        index++;
+      }
+    }
+
+    return sortedLetters.toString();
   }
 
   /**
