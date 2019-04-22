@@ -201,8 +201,38 @@ class Problems {
    */
 
   public static String characterMode(String string) {
-    // YOUR WORK HERE
-    return "";
+    HashMap<Character, Integer> characterFrequencies = new HashMap<>();
+    StringBuilder result = new StringBuilder();
+    int maxFrequency = 0;
+
+    String lowerCaseString = string.toLowerCase().replaceAll("\\s+", "");
+
+    for (int index = 0; index < lowerCaseString.length(); index++) {
+      char currentCharacter = lowerCaseString.charAt(index);
+
+      if (characterFrequencies.containsKey(currentCharacter)) {
+        int frequency = characterFrequencies.get(currentCharacter) + 1;
+        characterFrequencies.put(currentCharacter, frequency);
+
+        if (frequency > maxFrequency) {
+          maxFrequency = frequency;
+        }
+      } else {
+        characterFrequencies.put(currentCharacter, 1);
+      }
+    }
+
+    for (int index = 0; index < lowerCaseString.length(); index++) {
+      char currentCharacter = lowerCaseString.charAt(index);
+      int frequency = characterFrequencies.get(currentCharacter);
+
+      if (frequency == maxFrequency) {
+        result.append(currentCharacter);
+        characterFrequencies.replace(currentCharacter, maxFrequency - 1);
+      }
+    }
+
+    return result.toString();
   }
 
   /**
