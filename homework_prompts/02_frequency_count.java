@@ -201,37 +201,37 @@ class Problems {
    */
 
   public static String characterMode(String string) {
-    HashMap<Character, Integer> characterFrequencies = new HashMap<>();
+    HashMap<Character,Integer> characterFrequencies = new HashMap<>();
     StringBuilder result = new StringBuilder();
     int maxFrequency = 0;
 
-    String lowerCaseString = string.toLowerCase().replaceAll("\\s+", "");
-
-    for (int index = 0; index < lowerCaseString.length(); index++) {
+    String lowerCaseString = string.toLowerCase().replaceAll("\\s+","");
+    
+    for(int index = 0; index < lowerCaseString.length(); index++){
       char currentCharacter = lowerCaseString.charAt(index);
 
-      if (characterFrequencies.containsKey(currentCharacter)) {
+      if(characterFrequencies.containsKey(currentCharacter)){
         int frequency = characterFrequencies.get(currentCharacter) + 1;
         characterFrequencies.put(currentCharacter, frequency);
 
-        if (frequency > maxFrequency) {
+        if(frequency > maxFrequency){
           maxFrequency = frequency;
         }
-      } else {
+      }else {
         characterFrequencies.put(currentCharacter, 1);
       }
     }
 
-    for (int index = 0; index < lowerCaseString.length(); index++) {
+    for(int index = 0; index < lowerCaseString.length(); index++){
       char currentCharacter = lowerCaseString.charAt(index);
       int frequency = characterFrequencies.get(currentCharacter);
 
-      if (frequency == maxFrequency) {
+      if(frequency == maxFrequency){
         result.append(currentCharacter);
-        characterFrequencies.replace(currentCharacter, maxFrequency - 1);
+        characterFrequencies.replace(currentCharacter,maxFrequency - 1);
       }
     }
-
+    
     return result.toString();
   }
 
@@ -270,8 +270,16 @@ class Problems {
    */
 
   public static ArrayList getDuplicates(int[] arr) {
-    // YOUR WORK HERE
-    return new ArrayList<>();
+    ArrayList<Integer> duplicateNumbers = new ArrayList<>();
+    HashSet<Integer> seen = new HashSet<>();
+    
+    for(int value : arr){
+      if(!seen.add(value) && !duplicateNumbers.contains(value)){
+        duplicateNumbers.add(value);
+      }
+    }
+
+    return duplicateNumbers;
   }
 
   /**
