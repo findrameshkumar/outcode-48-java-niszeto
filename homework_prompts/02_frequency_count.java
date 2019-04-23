@@ -251,8 +251,32 @@ class Problems {
    */
 
   public static int sortDigits(int n) {
-    // YOUR WORK HERE
-    return -1;
+    int[] digitsCount = new int[10];
+    int number = n;
+    int remainder;
+
+    while (number != 0) {
+      remainder = number % 10;
+      digitsCount[remainder]++;
+      number /= 10;
+    }
+
+    int index = 1;
+    while (index < digitsCount.length) {
+      if (digitsCount[index] > 0) {
+        number *= 10;
+        number += index;
+        digitsCount[index]--;
+
+        if (digitsCount[index] == 0) {
+          index++;
+        }
+      } else if (digitsCount[index] == 0) {
+        index++;
+      }
+    }
+
+    return number;
   }
 
   /**
@@ -347,8 +371,22 @@ class Problems {
    */
 
   public static Boolean anagramPalindrome(String str) {
-    // YOUR WORK HERE
-    return false;
+    int[] lettersCount = new int[26];
+    int numberOfOdds = 0;
+
+    for (int index = 0; index < str.length(); index++) {
+      char currentCharacter = str.charAt(index);
+
+      lettersCount[currentCharacter - 97]++;
+    }
+
+    for (int letterCount : lettersCount) {
+      if (letterCount % 2 != 0) {
+        numberOfOdds++;
+      }
+    }
+
+    return numberOfOdds > 2 ? false : true;
   }
 }
 
