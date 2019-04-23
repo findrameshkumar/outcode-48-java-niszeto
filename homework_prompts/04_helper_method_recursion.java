@@ -95,8 +95,11 @@ class PrintReverse {
 class ReverseString {
 
   public static String compute(String str) {
-    // YOUR WORK HERE
-    return "";
+    if (str.isEmpty()) {
+      return "";
+    }
+
+    return compute(str.substring(1)) + str.charAt(0);
   }
 
 }
