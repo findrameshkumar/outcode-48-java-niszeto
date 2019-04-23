@@ -1,3 +1,4 @@
+
 /*
  *  Homework 04 - Helper Method Recursion
  *
@@ -9,86 +10,87 @@
 import java.io.*;
 import java.util.*;
 
-
 /**
  * 1a. What is the term when the recursive call invokes itself more than once.
- *
+ * multiple recursion
  *
  */
-
 
 /**
  * 1b. List the steps involved to build a Helper Method Recursion algorithm.
- *
- *
+ * 
+ 1. Instantiate variables (track state, results)
+ 2. Return results
+ 3. Helper Method (instantiate, invokes)
+ 4. Base cases
+ 5. Recursive case
+ * 
  */
-
 
 /**
  * 1c. Should the recursive case or base case typically be tackled first?
- *
+ * No 
  *
  */
 
-
 /**
- *  2a. Print each integer in an array in order using Helper Method Recursion
+ * 2a. Print each integer in an array in order using Helper Method Recursion
  *
- *  Input:   arr {Array}
- *  Output:  {void}
+ * Input: arr {Array} Output: {void}
  *
- *  Example: int[] nums = {1, 2, 3};
+ * Example: int[] nums = {1, 2, 3};
  *
- *          PrintArray.compute(nums) =>
- *          1
- *          2
- *          3
+ * PrintArray.compute(nums) => 1 2 3
  */
 class PrintArray {
 
   public static void compute(int[] arr) {
-    // YOUR WORK HERE
+    computeHelper(arr, 0);
   }
 
   public static void computeHelper(int[] arr, int index) {
-    // YOUR WORK HERE
+    if (index >= arr.length) {
+      return;
+    }
+
+    System.out.println(arr[index]);
+    computeHelper(arr, index + 1);
   }
 }
 
 /**
- *  2b. Given an integer array, print each item backwards using Helper Method
- *      Recursion
+ * 2b. Given an integer array, print each item backwards using Helper Method
+ * Recursion
  *
- *  Input:   arr {Array}
- *  Output:  {void}
+ * Input: arr {Array} Output: {void}
  *
- *  Example: int[] nums = {1, 2, 3};
+ * Example: int[] nums = {1, 2, 3};
  *
- *          PrintReverse.compute(nums) =>
- *          3
- *          2
- *          1
+ * PrintReverse.compute(nums) => 3 2 1
  */
 class PrintReverse {
 
   public static void compute(int[] arr) {
-    // YOUR WORK HERE
+    traverse(arr, arr.length - 1);
   }
 
   private static void traverse(int[] arr, int index) {
-    // YOUR WORK HERE
+    if (index < 0) {
+      return;
+    }
+
+    System.out.println(arr[index]);
+    traverse(arr, index - 1);
   }
 }
 
-
 /**
- *  2c. Reverse a string using Helper Method Recursion
+ * 2c. Reverse a string using Helper Method Recursion
  *
- *  Input:   String
- *  Output:  String
+ * Input: String Output: String
  *
- *  Example: String greeting = 'hello';
- *          ReverseString.compute(greeting) => 'olleh'
+ * Example: String greeting = 'hello'; ReverseString.compute(greeting) =>
+ * 'olleh'
  */
 class ReverseString {
 
@@ -99,21 +101,17 @@ class ReverseString {
 
 }
 
-
 /**
  * 2d. Given an array of positive integers, create an array of two-item integer
- *     arrays (two dimensional integer array) using Helper Method Recursion
+ * arrays (two dimensional integer array) using Helper Method Recursion
  *
- * Input:   Array of Integers
- * Output:  two-dimensional Integer Array
+ * Input: Array of Integers Output: two-dimensional Integer Array
  *
- * Example: int[] nums = {1, 2, 3, 4, 5, 6};
- *          ArrayPairs.compute(nums)  =>
- *          {{1,2}, {3,4}, {5,6}}
+ * Example: int[] nums = {1, 2, 3, 4, 5, 6}; ArrayPairs.compute(nums) => {{1,2},
+ * {3,4}, {5,6}}
  *
- * Example: int[] nums2 = {1, 2, 3, 4, 5};
- *          ArrayPairs.compute(nums2)  =>
- *          {{1,2}, {3,4}, {5, -1}}
+ * Example: int[] nums2 = {1, 2, 3, 4, 5}; ArrayPairs.compute(nums2) => {{1,2},
+ * {3,4}, {5, -1}}
  */
 class ArrayPairs {
 
@@ -122,20 +120,15 @@ class ArrayPairs {
     return new int[0][0];
   }
 
-
-
 }
-
 
 /**
  * 2e. Flatten a two dimensional integer array using Helper Method of Recursion
  *
- * Input:   two-dimensional Integer Array
- * Output:  Array of Integers
+ * Input: two-dimensional Integer Array Output: Array of Integers
  *
  * Example: int matrix[][]= {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
- *          Flatten.compute(matrix) =>
- *          {1, 2, 3, 4, 5, 6, 7, 8, 9}
+ * Flatten.compute(matrix) => {1, 2, 3, 4, 5, 6, 7, 8, 9}
  */
 class Flatten {
 
@@ -144,16 +137,13 @@ class Flatten {
     return new int[0];
   }
 
-
 }
-
 
 /**
  * 2f. Given a base and an exponent, create a method to find the power using
- *     Helper Method Recursion
+ * Helper Method Recursion
  *
- * Input:   Two Integers, base and exponent
- * Output:  Integer
+ * Input: Two Integers, base and exponent Output: Integer
  *
  * Example: Power.compute(3, 4) => 81
  */
@@ -166,18 +156,14 @@ class Power {
 
 }
 
-
 /**
  * 2g. Merge two sorted arrays using the Helper Method Recursion
  *
- * Input:   Two Integer Arrays, both sorted
- * Output:  Integer Array, sorted
+ * Input: Two Integer Arrays, both sorted Output: Integer Array, sorted
  *
- * Example: int[] nums1 = {1, 4, 7};
- *          int[] nums2 = {2, 3, 6, 9};
+ * Example: int[] nums1 = {1, 4, 7}; int[] nums2 = {2, 3, 6, 9};
  *
- *          Merge.compute(nums1, nums2) =>
- *          { 1, 2, 3, 4, 6, 7, 9 }
+ * Merge.compute(nums1, nums2) => { 1, 2, 3, 4, 6, 7, 9 }
  */
 class Merge {
 
@@ -188,11 +174,8 @@ class Merge {
 
 }
 
-
-
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -206,8 +189,9 @@ class Main {
 
   public static void main(String[] args) {
 
-    // instantiate the testing of each module by resetting count and printing title of module
-    int[] testCount = {0, 0};
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    int[] testCount = { 0, 0 };
     System.out.println("PrintArray tests");
 
     // tests are in the form as shown
@@ -225,14 +209,14 @@ class Main {
         System.setOut(ps);
 
         // Print some output: goes to your special stream
-        int[] input = {1,2,3};
+        int[] input = { 1, 2, 3 };
         printArray.compute(input);
 
         // Put things back
         System.out.flush();
         System.setOut(old);
         // Show what happened
-        //System.out.println("Here: " + baos.toString());
+        // System.out.println("Here: " + baos.toString());
 
         return baos.toString().equals("1\n2\n3\n");
       }
@@ -259,7 +243,7 @@ class Main {
         System.out.flush();
         System.setOut(old);
         // Show what happened
-        //System.out.println("Here: " + baos.toString());
+        // System.out.println("Here: " + baos.toString());
 
         return baos.toString().equals("");
       }
@@ -279,27 +263,24 @@ class Main {
         System.setOut(ps);
 
         // Print some output: goes to your special stream
-        int[] input = {5};
+        int[] input = { 5 };
         printArray.compute(input);
 
         // Put things back
         System.out.flush();
         System.setOut(old);
         // Show what happened
-        //System.out.println("Here: " + baos.toString());
+        // System.out.println("Here: " + baos.toString());
 
         return baos.toString().equals("5\n");
       }
     });
 
-
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("PrintReverse tests");
@@ -319,14 +300,14 @@ class Main {
         System.setOut(ps);
 
         // Print some output: goes to your special stream
-        int[] input = {1,2,3};
+        int[] input = { 1, 2, 3 };
         printReverse.compute(input);
 
         // Put things back
         System.out.flush();
         System.setOut(old);
         // Show what happened
-        //System.out.println("Here: " + baos.toString());
+        // System.out.println("Here: " + baos.toString());
 
         return baos.toString().equals("3\n2\n1\n");
       }
@@ -353,7 +334,7 @@ class Main {
         System.out.flush();
         System.setOut(old);
         // Show what happened
-        //System.out.println("Here: " + baos.toString());
+        // System.out.println("Here: " + baos.toString());
 
         return baos.toString().equals("");
       }
@@ -373,26 +354,24 @@ class Main {
         System.setOut(ps);
 
         // Print some output: goes to your special stream
-        int[] input = {5};
+        int[] input = { 5 };
         printReverse.compute(input);
 
         // Put things back
         System.out.flush();
         System.setOut(old);
         // Show what happened
-        //System.out.println("Here: " + baos.toString());
+        // System.out.println("Here: " + baos.toString());
 
         return baos.toString().equals("5\n");
       }
     });
 
-
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("ReverseString tests");
@@ -427,13 +406,11 @@ class Main {
       }
     });
 
-
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("ArrayPairs tests");
@@ -444,13 +421,11 @@ class Main {
 
         ArrayPairs arrayPairs = new ArrayPairs();
 
-        int[] input = {1,2,3,4,5,6};
+        int[] input = { 1, 2, 3, 4, 5, 6 };
         int[][] output = arrayPairs.compute(input);
 
-        return output.length == 3 &&
-                  output[0][0] == 1 && output[0][1] == 2 &&
-                  output[1][0] == 3 && output[1][1] == 4 &&
-                  output[2][0] == 5 && output[2][1] == 6;
+        return output.length == 3 && output[0][0] == 1 && output[0][1] == 2 && output[1][0] == 3 && output[1][1] == 4
+            && output[2][0] == 5 && output[2][1] == 6;
 
       }
     });
@@ -460,13 +435,11 @@ class Main {
 
         ArrayPairs arrayPairs = new ArrayPairs();
 
-        int[] input = {1,2,3,4,5};
+        int[] input = { 1, 2, 3, 4, 5 };
         int[][] output = arrayPairs.compute(input);
 
-        return output.length == 3 &&
-                  output[0][0] == 1 && output[0][1] == 2 &&
-                  output[1][0] == 3 && output[1][1] == 4 &&
-                  output[2][0] == 5 && output[2][1] == -1;
+        return output.length == 3 && output[0][0] == 1 && output[0][1] == 2 && output[1][0] == 3 && output[1][1] == 4
+            && output[2][0] == 5 && output[2][1] == -1;
 
       }
     });
@@ -484,36 +457,30 @@ class Main {
       }
     });
 
-
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Flatten tests");
 
     // tests are in the form as shown
-    assertTest(testCount, "should return [1,2,3,4,5,6,7,8,9] output for [[1, 2, 3],[4, 5, 6],[7, 8, 9]] input", new Test() {
-      public boolean execute() {
+    assertTest(testCount, "should return [1,2,3,4,5,6,7,8,9] output for [[1, 2, 3],[4, 5, 6],[7, 8, 9]] input",
+        new Test() {
+          public boolean execute() {
 
-        Flatten flatten = new Flatten();
+            Flatten flatten = new Flatten();
 
-        int[][] input = {{1, 2, 3} ,{4, 5, 6}, {7, 8, 9}};
-        int[] output = flatten.compute(input);
+            int[][] input = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            int[] output = flatten.compute(input);
 
-        return output.length == 9 &&
-                  output[0] == 1 && output[1] == 2 &&
-                  output[2] == 3 && output[3] == 4 &&
-                  output[4] == 5 && output[5] == 6 &&
-                  output[6] == 7 && output[7] == 8 &&
-                  output[8] == 9;
+            return output.length == 9 && output[0] == 1 && output[1] == 2 && output[2] == 3 && output[3] == 4
+                && output[4] == 5 && output[5] == 6 && output[6] == 7 && output[7] == 8 && output[8] == 9;
 
-      }
-    });
+          }
+        });
 
     assertTest(testCount, "should return [] output for [] input", new Test() {
       public boolean execute() {
@@ -530,8 +497,8 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Power tests");
@@ -542,7 +509,7 @@ class Main {
 
         Power power = new Power();
 
-        return power.compute(3,4) == 81;
+        return power.compute(3, 4) == 81;
 
       }
     });
@@ -552,7 +519,7 @@ class Main {
 
         Power power = new Power();
 
-        return power.compute(5,0) == 1;
+        return power.compute(5, 0) == 1;
 
       }
     });
@@ -562,7 +529,7 @@ class Main {
 
         Power power = new Power();
 
-        return power.compute(1,100) == 1;
+        return power.compute(1, 100) == 1;
 
       }
     });
@@ -570,8 +537,8 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Merge tests");
@@ -582,19 +549,13 @@ class Main {
 
         Merge merge = new Merge();
 
-        int[] input1 = {1,4,7};
-        int[] input2 = {2,3,6,9};
+        int[] input1 = { 1, 4, 7 };
+        int[] input2 = { 2, 3, 6, 9 };
 
         int[] output = merge.compute(input1, input2);
 
-        return output.length == 7 &&
-                  output[0] == 1 &&
-                  output[1] == 2 &&
-                  output[2] == 3 &&
-                  output[3] == 4 &&
-                  output[4] == 6 &&
-                  output[5] == 7 &&
-                  output[6] == 9;
+        return output.length == 7 && output[0] == 1 && output[1] == 2 && output[2] == 3 && output[3] == 4
+            && output[4] == 6 && output[5] == 7 && output[6] == 9;
 
       }
     });
@@ -605,15 +566,11 @@ class Main {
         Merge merge = new Merge();
 
         int[] input1 = {};
-        int[] input2 = {2,3,6,9};
+        int[] input2 = { 2, 3, 6, 9 };
 
         int[] output = merge.compute(input1, input2);
 
-        return output.length == 4 &&
-                  output[0] == 2 &&
-                  output[1] == 3 &&
-                  output[2] == 6 &&
-                  output[3] == 9;
+        return output.length == 4 && output[0] == 2 && output[1] == 3 && output[2] == 6 && output[3] == 9;
 
       }
     });
@@ -623,15 +580,12 @@ class Main {
 
         Merge merge = new Merge();
 
-        int[] input1 = {1,4,7};
+        int[] input1 = { 1, 4, 7 };
         int[] input2 = {};
 
         int[] output = merge.compute(input1, input2);
 
-        return output.length == 3 &&
-                  output[0] == 1 &&
-                  output[1] == 4 &&
-                  output[2] == 7;
+        return output.length == 3 && output[0] == 1 && output[1] == 4 && output[2] == 7;
 
       }
     });
@@ -654,7 +608,6 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
   }
 
   // do not edit below, this is to wrap the test and check for exceptions
@@ -667,7 +620,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
