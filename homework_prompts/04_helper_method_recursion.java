@@ -119,8 +119,34 @@ class ReverseString {
 class ArrayPairs {
 
   public static int[][] compute(int[] arr) {
-    // YOUR WORK HERE
-    return new int[0][0];
+    if (arr.length == 0) {
+      return new int[0][0];
+    }
+
+    int numberOfPairs = (arr.length + 1) / 2;
+    int[][] pairs = new int[numberOfPairs][2];
+    putArrayPairsHelper(arr, pairs, 0, numberOfPairs);
+
+    return pairs;
+  }
+
+  public static void putArrayPairsHelper(int[] array, int[][] result, int currentPair, int numberOfPairs) {
+    if (currentPair >= numberOfPairs) {
+      return;
+    }
+
+    int firstIndex = currentPair * 2;
+    int secondIndex = firstIndex + 1;
+
+    result[currentPair][0] = array[firstIndex];
+
+    if (secondIndex < array.length) {
+      result[currentPair][1] = array[secondIndex];
+    } else {
+      result[currentPair][1] = -1;
+    }
+
+    putArrayPairsHelper(array, result, currentPair + 1, numberOfPairs);
   }
 
 }
