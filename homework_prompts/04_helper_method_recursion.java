@@ -162,8 +162,29 @@ class ArrayPairs {
 class Flatten {
 
   public static int[] compute(int[][] matrix) {
-    // YOUR WORK HERE
-    return new int[0];
+    if (matrix.length == 0) {
+      return new int[0];
+    }
+    int size = matrix.length * matrix[0].length;
+
+    int[] flattenArray = new int[size];
+    flattenHelper(matrix, 0, flattenArray, 0);
+
+    return flattenArray;
+  }
+
+  public static void flattenHelper(int[][] matrix, int currentRow, int[] result, int currentIndex) {
+    if (currentRow >= matrix.length) {
+      return;
+    }
+
+    for (int columnIndex = 0; columnIndex < matrix[0].length; columnIndex++) {
+      result[currentIndex] = matrix[currentRow][columnIndex];
+      currentIndex++;
+    }
+
+    flattenHelper(matrix, currentRow + 1, result, currentIndex);
+
   }
 
 }
