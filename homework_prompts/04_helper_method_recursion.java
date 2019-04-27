@@ -200,8 +200,19 @@ class Flatten {
 class Power {
 
   public static int compute(int a, int b) {
-    // YOUR WORK HERE
-    return -1;
+    if (a == 1 || b == 0) {
+      return 1;
+    }
+
+    return powerHelper(a, a, b);
+  }
+
+  public static int powerHelper(int product, int base, int timesLeft) {
+    if (timesLeft <= 0) {
+      return product / base;
+    }
+
+    return powerHelper(product * base, base, timesLeft - 1);
   }
 
 }
