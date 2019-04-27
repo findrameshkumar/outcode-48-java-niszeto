@@ -229,8 +229,46 @@ class Power {
 class Merge {
 
   public static int[] compute(int[] arr1, int[] arr2) {
-    // YOUR WORK HERE
-    return new int[0];
+    if (arr1.length == 0 && arr2.length == 0) {
+      return new int[0];
+    }
+
+    if (arr1.length == 0) {
+      return arr2;
+    }
+    if (arr2.length == 0) {
+      return arr1;
+    }
+
+    int size = arr1.length + arr2.length;
+    int[] result = new int[size];
+
+    mergeHelper(arr1, 0, arr2, 0, result, 0);
+
+    return result;
+  }
+
+  public static void mergeHelper(int[] arr1, int arr1Index, int[] arr2, int arr2Index, int[] result, int currentIndex) {
+    if (arr1Index >= arr1.length && arr2Index >= arr2.length || currentIndex >= result.length) {
+      return;
+    }
+
+    if (arr1Index >= arr1.length) {
+      result[currentIndex] = arr2[arr2Index];
+      mergeHelper(arr1, arr1Index, arr2, arr2Index + 1, result, currentIndex + 1);
+    } else if (arr2Index >= arr2.length) {
+      result[currentIndex] = arr1[arr1Index];
+      mergeHelper(arr1, arr1Index + 1, arr2, arr2Index, result, currentIndex + 1);
+    } else {
+      if (arr1[arr1Index] <= arr2[arr2Index]) {
+        result[currentIndex] = arr1[arr1Index];
+        mergeHelper(arr1, arr1Index + 1, arr2, arr2Index, result, currentIndex + 1);
+      } else {
+        result[currentIndex] = arr2[arr2Index];
+        mergeHelper(arr1, arr1Index, arr2, arr2Index + 1, result, currentIndex + 1);
+      }
+    }
+
   }
 
 }
