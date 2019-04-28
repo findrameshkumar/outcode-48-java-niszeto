@@ -3,195 +3,183 @@
  * Utilize the decrease and conquer pattern to solve these problems.
  */
 
-
 import java.io.*;
 import java.util.*;
 
 class Problems {
 
-/*
- *
- *  Number of Ones
- *
- * *Given a sorted bit array (values of either 0 or 1), determine the number of 1's in the array.*
- *
- * **Parameters**
- * Input: arr {Array of Integers}
- * Output: {Integer}
- *
- * **Constraints**
- * Time: O(logN)
- * Space: O(1)
- *
- * **Examples**
- * `[0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1] --> 8`
- * `[0, 0, 0] --> 0`
- * `[0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1] --> 7`
- */
+  /*
+   *
+   * Number of Ones
+   *
+   * *Given a sorted bit array (values of either 0 or 1), determine the number of
+   * 1's in the array.*
+   *
+   * **Parameters** Input: arr {Array of Integers} Output: {Integer}
+   *
+   * **Constraints** Time: O(logN) Space: O(1)
+   *
+   * **Examples** `[0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1] --> 8` `[0, 0, 0] --> 0` `[0,
+   * 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1] --> 7`
+   */
 
   public static int numberOfOnes(int[] arr) {
+    if (arr.length == 0) {
+      return 0;
+    }
+    int firstIndexOfOne = findFirstIndexOf(arr, 1);
+
+    return firstIndexOfOne == -1 ? 0 : (arr.length - firstIndexOfOne);
+  }
+
+  private static int findFirstIndexOf(int[] array, int target) {
+    int start = 0;
+    int end = array.length - 1;
+    int middle;
+    int result = -1;
+
+    while (start <= end) {
+      middle = start + (end - start) / 2;
+
+      if (array[middle] == target) {
+        result = middle;
+        end = middle - 1;
+      } else if (array[middle] > target) {
+        end = middle - 1;
+      } else if (array[middle] < target) {
+        start = middle + 1;
+      }
+    }
+
+    return result;
+  }
+
+  /*
+   * Closest Value
+   *
+   * Given a sorted bit array of integers, and a target value, find the number in
+   * the array that is closest to the target.*
+   *
+   * **Parameters** Input: arr {Array of Integers} Input: target {Integer} Output:
+   * {Integer}
+   *
+   * **Constraints** If there are two numbers tied for the closest value, return
+   * the lowest value.
+   *
+   * Time: O(logN) Space: O(1)
+   *
+   * **Examples** `[1, 2, 3, 5, 5, 7, 9, 10, 11], 6 --> 5` `[1, 2, 3], 8 --> 3`
+   * `[1, 10, 22, 59, 67, 72, 100], 70 --> 72`
+   */
+
+  public static int closestValue(int[] arr, int target) {
     // YOUR WORK HERE
     return -1;
   }
 
-/*
- * Closest Value
- *
- * Given a sorted bit array of integers, and a target value, find the number in the array that is closest to the target.*
- *
- * **Parameters**
- * Input: arr {Array of Integers}
- * Input: target {Integer}
- * Output: {Integer}
- *
- * **Constraints**
- * If there are two numbers tied for the closest value, return the lowest value.
- *
- * Time: O(logN)
- * Space: O(1)
- *
- * **Examples**
- * `[1, 2, 3, 5, 5, 7, 9, 10, 11], 6 --> 5`
- * `[1, 2, 3], 8 --> 3`
- * `[1, 10, 22, 59, 67, 72, 100], 70 --> 72`
- */
+  /*
+   * Square Root
+   *
+   * Given an positive integer, find the square root.*
+   *
+   * **Parameters** Input: value {Double} Output: {Double}
+   *
+   * **Constraints** Do not use a native built in method. Ensure the result is
+   * accurate to 6 decimal places (0.000001)
+   *
+   * Time: O(logN) Space: O(1)
+   *
+   * **Examples** `4 --> 2.0` `98 --> 9.899495` `14856 --> 121.885192
+   */
 
-public static int closestValue(int[] arr, int target) {
-  // YOUR WORK HERE
-  return -1;
-}
+  public static Double squareRoot(Double n) {
+    // YOUR WORK HERE
+    return -1.0;
+  }
 
+  /*
+   * Greater Values
+   *
+   * *Given an sorted array of integers, and a target value return the number of
+   * values greater the target.*
+   *
+   * **Parameters** Input: arr {Array of Integers} Input: target {Integer} Output:
+   * {Integer}
+   *
+   * **Constraints**
+   *
+   * Time: O(logN) Space: O(1)
+   *
+   * **Examples** `[1, 2, 3, 5, 5, 7, 9, 10, 11], 5 --> 4` `[1, 2, 3], 4 --> 0`
+   * `[1, 10, 22, 59, 67, 72, 100], 13 --> 5`
+   *
+   */
 
-/*
- * Square Root
- *
- * Given an positive integer, find the square root.*
- *
- * **Parameters**
- * Input: value {Double}
- * Output: {Double}
- *
- * **Constraints**
- * Do not use a native built in method.
- * Ensure the result is accurate to 6 decimal places (0.000001)
- *
- * Time: O(logN)
- * Space: O(1)
- *
- * **Examples**
- * `4 --> 2.0`
- * `98 --> 9.899495`
- * `14856 --> 121.885192
- */
+  public static int greaterValues(int[] arr, int target) {
+    // YOUR WORK HERE
+    return -1;
+  }
 
+  /*
+   * Sorted and Rotated Array [Extra Credit]
+   *
+   * *Given a array that is sorted an rotated, find out if a target value exists
+   * in the array.*
+   *
+   * An sorted array is rotated by taking an unknown amount of values from the
+   * beginning and placing it at the end.
+   *
+   * `[3, 4, 5, 1, 2]` is rotated left by 2. `[99, 14, 25, 78, 93]` is rotated to
+   * the right by 1.
+   *
+   * **Parameters** Input: arr {Array of Integers} Input: target {Integer} Output:
+   * {Boolean}
+   *
+   * **Constraints** Time: O(logN) Space: O(N)
+   *
+   * **Examples** `[35, 46, 79, 102, 1, 14, 29, 31], 46 --> true` `[35, 46, 79,
+   * 102, 1, 14, 29, 31], 47 --> false` `[7, 8, 9, 10, 1, 2, 3, 4, 5, 6], 9 -->
+   * true`
+   */
 
-public static Double squareRoot(Double n) {
-  // YOUR WORK HERE
-  return -1.0;
-}
+  public static boolean rotatedArraySearch(int[] nums, int target) {
+    // YOUR WORK HERE
+    return false;
+  }
 
+  private static boolean binarySearch(int[] nums, int start, int end, int target) {
+    // YOUR WORK HERE
+    return false;
+  }
 
-/*
- * Greater Values
- *
- * *Given an sorted array of integers, and a target value return the number of values greater the target.*
- *
- * **Parameters**
- * Input: arr {Array of Integers}
- * Input: target {Integer}
- * Output: {Integer}
- *
- * **Constraints**
- *
- * Time: O(logN)
- * Space: O(1)
- *
- * **Examples**
- * `[1, 2, 3, 5, 5, 7, 9, 10, 11], 5 --> 4`
- * `[1, 2, 3], 4 --> 0`
- * `[1, 10, 22, 59, 67, 72, 100], 13 --> 5`
- *
-*/
+  /*
+   * Multiplication Using Russian Peasant [Extra Credit]
+   *
+   * *Given two positive integers, return its product using Russian Peasant method
+   * of multiplication*
+   *
+   * Read up on how to apply the Russian Peasant method [here](https:
+   * *en.wikipedia.org/wiki/Ancient_Egyptian_multiplication). It is also referred
+   * to as the Egyptian multiplication.
+   *
+   * **Parameters** Input: a {Integer} Input: b {Integer} Output: {Integer}
+   *
+   * **Constraints** Assume a <= b, and the value of a is N.
+   *
+   * Time: O(logN) Space: O(1)
+   *
+   * **Examples** `734, 487 --> 357458` `846, 908--> 768168`
+   */
 
-public static int greaterValues(int[] arr, int target) {
-  // YOUR WORK HERE
-  return -1;
-}
-
-
-/*
- * Sorted and Rotated Array [Extra Credit]
- *
- * *Given a array that is sorted an rotated, find out if a target value exists in the array.*
- *
- * An sorted array is rotated by taking an unknown amount of values from the beginning and placing it at the end.
- *
- * `[3, 4, 5, 1, 2]` is rotated left by 2.
- * `[99, 14, 25, 78, 93]` is rotated to the right by 1.
- *
- * **Parameters**
- * Input: arr {Array of Integers}
- * Input: target {Integer}
- * Output: {Boolean}
- *
- * **Constraints**
- * Time: O(logN)
- * Space: O(N)
- *
- * **Examples**
- * `[35, 46, 79, 102, 1, 14, 29, 31], 46 --> true`
- * `[35, 46, 79, 102, 1, 14, 29, 31], 47 --> false`
- * `[7, 8, 9, 10, 1, 2, 3, 4, 5, 6], 9 --> true`
- */
-
-public static boolean rotatedArraySearch(int[] nums, int target) {
-  // YOUR WORK HERE
-  return false;
-}
-
-
-private static boolean binarySearch(int[] nums, int start, int end, int target) {
-  // YOUR WORK HERE
-  return false;
-}
-
-
-/*
- * Multiplication Using Russian Peasant [Extra Credit]
- *
- * *Given two positive integers, return its product using Russian Peasant method of multiplication*
- *
- * Read up on how to apply the Russian Peasant method [here](https: *en.wikipedia.org/wiki/Ancient_Egyptian_multiplication). It is also referred to as the Egyptian multiplication.
- *
- * **Parameters**
- * Input: a {Integer}
- * Input: b {Integer}
- * Output: {Integer}
- *
- * **Constraints**
- * Assume a <= b, and the value of a is N.
- *
- * Time: O(logN)
- * Space: O(1)
- *
- * **Examples**
- * `734, 487 --> 357458`
- * `846, 908--> 768168`
- */
-
-public static int multiplicationRussianPeasant(int a, int b) {
-  // YOUR WORK HERE
-  return -1;
-}
+  public static int multiplicationRussianPeasant(int a, int b) {
+    // YOUR WORK HERE
+    return -1;
+  }
 
 }
-
-
-
-
 
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -205,34 +193,34 @@ class Main {
 
   public static void main(String[] args) {
 
-    // instantiate the testing of each module by resetting count and printing title of module
-    int[] testCount = {0, 0};
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    int[] testCount = { 0, 0 };
     System.out.println("Number Of Ones Tests");
 
     // tests are in the form as shown
     assertTest(testCount, "should return correct number of ones for array with zeroes and ones", new Test() {
       public boolean execute() {
-        int output = Problems.numberOfOnes(new int[]{0, 0, 0, 1, 1, 1});
+        int output = Problems.numberOfOnes(new int[] { 0, 0, 0, 1, 1, 1 });
         return output == 3;
       }
     });
 
     assertTest(testCount, "should return correct number of ones for array with all zeroes", new Test() {
       public boolean execute() {
-        int output = Problems.numberOfOnes(new int[]{0, 0, 0, 0, 0, 0});
+        int output = Problems.numberOfOnes(new int[] { 0, 0, 0, 0, 0, 0 });
         return output == 0;
       }
     });
 
     assertTest(testCount, "should return correct number of ones for array with all ones", new Test() {
       public boolean execute() {
-        int output = Problems.numberOfOnes(new int[]{1, 1, 1, 1, 1});
+        int output = Problems.numberOfOnes(new int[] { 1, 1, 1, 1, 1 });
         return output == 5;
       }
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -240,25 +228,24 @@ class Main {
 
     assertTest(testCount, "should return correct closest value for number in the middle range", new Test() {
       public boolean execute() {
-        int output = Problems.closestValue(new int[]{1, 2, 3, 5, 5, 7, 9, 10, 11}, 6);
+        int output = Problems.closestValue(new int[] { 1, 2, 3, 5, 5, 7, 9, 10, 11 }, 6);
         return output == 5;
       }
     });
 
     assertTest(testCount, "should return closest value for highest number", new Test() {
       public boolean execute() {
-        int output = Problems.closestValue(new int[]{1, 2, 3}, 8);
+        int output = Problems.closestValue(new int[] { 1, 2, 3 }, 8);
         return output == 3;
       }
     });
 
     assertTest(testCount, "should return closest value for lowest number", new Test() {
       public boolean execute() {
-        int output = Problems.closestValue(new int[]{-2, -1, 0}, -5);
+        int output = Problems.closestValue(new int[] { -2, -1, 0 }, -5);
         return output == -2;
       }
     });
-
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
@@ -289,36 +276,32 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Greater Values Tests");
 
     assertTest(testCount, "should return greater values for number in the middle of the array", new Test() {
       public boolean execute() {
-        int output = Problems.greaterValues(new int[] {1, 2, 3, 5, 5, 7, 9, 10, 11}, 5);
+        int output = Problems.greaterValues(new int[] { 1, 2, 3, 5, 5, 7, 9, 10, 11 }, 5);
         return output == 4;
       }
     });
 
     assertTest(testCount, "should return 0 for number greater than largest in the array", new Test() {
       public boolean execute() {
-        int output = Problems.greaterValues(new int[] {1, 2, 3}, 4);
+        int output = Problems.greaterValues(new int[] { 1, 2, 3 }, 4);
         return output == 0;
       }
     });
 
     assertTest(testCount, "should return length of array for number less than least in the array", new Test() {
       public boolean execute() {
-        int output = Problems.greaterValues(new int[] {1, 10, 22, 59, 67, 72, 100}, -2);
+        int output = Problems.greaterValues(new int[] { 1, 10, 22, 59, 67, 72, 100 }, -2);
         return output == 7;
       }
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -326,35 +309,33 @@ class Main {
 
     assertTest(testCount, "returns true when target is in the array", new Test() {
       public boolean execute() {
-        boolean output = Problems.rotatedArraySearch(new int[] {35, 46, 79, 102, 1, 14, 29, 31}, 46);
+        boolean output = Problems.rotatedArraySearch(new int[] { 35, 46, 79, 102, 1, 14, 29, 31 }, 46);
         return output == true;
       }
     });
 
     assertTest(testCount, "returns false when target is not in the array", new Test() {
       public boolean execute() {
-        boolean output = Problems.rotatedArraySearch(new int[] {35, 46, 79, 102, 1, 14, 29, 31}, 47);
+        boolean output = Problems.rotatedArraySearch(new int[] { 35, 46, 79, 102, 1, 14, 29, 31 }, 47);
         return output == false;
       }
     });
 
     assertTest(testCount, "returns true when target is the first number in the array", new Test() {
       public boolean execute() {
-        boolean output = Problems.rotatedArraySearch(new int[] {7, 8, 9, 10, 1, 2, 3, 4, 5, 6}, 7);
+        boolean output = Problems.rotatedArraySearch(new int[] { 7, 8, 9, 10, 1, 2, 3, 4, 5, 6 }, 7);
         return output == true;
       }
     });
 
     assertTest(testCount, "returns true when target is the last number in the array", new Test() {
       public boolean execute() {
-        boolean output = Problems.rotatedArraySearch(new int[] {7, 8, 9, 10, 1, 2, 3, 4, 5, 6}, 6);
+        boolean output = Problems.rotatedArraySearch(new int[] { 7, 8, 9, 10, 1, 2, 3, 4, 5, 6 }, 6);
         return output == true;
       }
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -371,7 +352,7 @@ class Main {
 
   }
 
-// do not edit below, this is to wrap the test and check for exceptions
+  // do not edit below, this is to wrap the test and check for exceptions
   private static void assertTest(int[] count, String name, Test test) {
     String pass = "false";
     count[1]++;
@@ -381,7 +362,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
