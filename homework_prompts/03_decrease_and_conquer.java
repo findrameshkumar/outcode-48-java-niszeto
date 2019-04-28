@@ -92,8 +92,7 @@ class Problems {
         start = middle + 1;
       }
     }
-    System.out.println("start index : " + start);
-    System.out.println("end index: " + end);
+
     if (end < 0) {
       return arr[start];
     }
@@ -149,8 +148,26 @@ class Problems {
    */
 
   public static int greaterValues(int[] arr, int target) {
-    // YOUR WORK HERE
-    return -1;
+    int start = 0;
+    int end = arr.length - 1;
+    int middle;
+    int resultIndex = -1;
+
+    while (start <= end) {
+      middle = start + (end - start) / 2;
+
+      if (arr[middle] == target) {
+        resultIndex = middle;
+        start = middle + 1;
+      } else if (arr[middle] > target) {
+        end = middle - 1;
+      } else if (arr[middle] < target) {
+        start = middle + 1;
+        resultIndex = middle;
+      }
+    }
+
+    return arr.length - 1 - resultIndex;
   }
 
   /*
