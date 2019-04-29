@@ -1,3 +1,4 @@
+
 /**
  *  Homework 08 - Quasilinear Sorts
  *
@@ -15,25 +16,75 @@
 
 import java.util.*;
 
-// Worst Time Complexity:
-// Worst Total (Call Stack + Auxiliary) Space Complexity:
-// Average Time Complexity:
-// Average Total (Call Stack + Auxiliary) Space Complexity:
+// Worst Time Complexity: nlogn
+// Worst Total (Call Stack + Auxiliary) Space Complexity: n
+// Average Time Complexity: nlogn
+// Average Total (Call Stack + Auxiliary) Space Complexity: n 
 // Stability:
-class Mergesort{
+class Mergesort {
   public static int[] compute(int[] input) {
-    return new int[0];
+    if (input.length < 2) {
+      return input;
+    }
+
+    int arrayHalfLength = input.length / 2;
+
+    int[] leftArray = new int[arrayHalfLength];
+    int[] rightArray = new int[input.length - arrayHalfLength];
+
+    for (int index = 0; index < arrayHalfLength; index++) {
+      leftArray[index] = input[index];
+    }
+
+    for (int index = arrayHalfLength; index < input.length; index++) {
+      rightArray[index - arrayHalfLength] = input[index];
+    }
+
+    int[] sortedLeft = compute(leftArray);
+    int[] sortedRight = compute(rightArray);
+    int[] fullySortedArray = merge(sortedLeft, sortedRight);
+
+    return fullySortedArray;
+
   }
 
-  private static int[] merge(int[] array1, int[] array2){
-    // YOUR CODE HERE
-    return new int[0];
+  private static int[] merge(int[] array1, int[] array2) {
+    int[] result = new int[array1.length + array2.length];
+
+    int resultIndex = 0;
+    int firstArrayIndex = 0;
+    int secondArrayIndex = 0;
+
+    while (firstArrayIndex < array1.length && secondArrayIndex < array2.length) {
+      if (array1[firstArrayIndex] <= array2[secondArrayIndex]) {
+        result[resultIndex] = array1[firstArrayIndex];
+        firstArrayIndex++;
+      } else {
+        result[resultIndex] = array2[secondArrayIndex];
+        secondArrayIndex++;
+      }
+
+      resultIndex++;
+    }
+
+    while (firstArrayIndex < array1.length) {
+      result[resultIndex] = array1[firstArrayIndex];
+      resultIndex++;
+      firstArrayIndex++;
+    }
+
+    while (secondArrayIndex < array2.length) {
+      result[resultIndex] = array2[secondArrayIndex];
+      resultIndex++;
+      secondArrayIndex++;
+    }
+
+    return result;
   }
 }
 
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -47,28 +98,28 @@ class Main {
 
   public static void main(String[] args) {
 
-    int[] testCount = {0, 0};
+    int[] testCount = { 0, 0 };
     System.out.println("Merge Sort Tests");
 
     // tests are in the form as shown
     assertTest(testCount, "should sort example input", new Test() {
       public boolean execute() {
         Mergesort mergesort = new Mergesort();
-        return arraysEqual(mergesort.compute(new int[]{3, 9, 1, 4, 7}), new int[]{1, 3, 4, 7, 9});
+        return arraysEqual(mergesort.compute(new int[] { 3, 9, 1, 4, 7 }), new int[] { 1, 3, 4, 7, 9 });
       }
     });
 
     assertTest(testCount, "should return empty array for empty input", new Test() {
       public boolean execute() {
         Mergesort mergesort = new Mergesort();
-        return arraysEqual(mergesort.compute(new int[]{}), new int[]{});
+        return arraysEqual(mergesort.compute(new int[] {}), new int[] {});
       }
     });
 
     assertTest(testCount, "should sort single-element input", new Test() {
       public boolean execute() {
         Mergesort mergesort = new Mergesort();
-        return arraysEqual(mergesort.compute(new int[]{10}), new int[]{10});
+        return arraysEqual(mergesort.compute(new int[] { 10 }), new int[] { 10 });
       }
     });
 
@@ -76,7 +127,7 @@ class Main {
       public boolean execute() {
         Mergesort mergesort = new Mergesort();
         int[] input = new int[1000];
-        for (int i = 0 ; i < input.length ; i++) {
+        for (int i = 0; i < input.length; i++) {
           input[i] = (int) Math.floor(Math.random() * 1000);
         }
         int[] inputSorted = new int[1000];
@@ -96,7 +147,7 @@ class Main {
       public boolean execute() {
         Mergesort mergesort = new Mergesort();
         int[] input = new int[1000000];
-        for (int i = 0 ; i < input.length ; i++) {
+        for (int i = 0; i < input.length; i++) {
           input[i] = (int) Math.floor(Math.random() * 1000000);
         }
         int[] inputSorted = new int[1000000];
@@ -123,7 +174,7 @@ class Main {
       return false;
     }
 
-    for (int i = 0 ; i < arr1.length ; i++) {
+    for (int i = 0; i < arr1.length; i++) {
       if (arr1[i] != arr2[i]) {
         return false;
       }
@@ -132,15 +183,14 @@ class Main {
     return true;
   }
 
-
   // checks if array is sorted in linear time
   private static boolean isSorted(int[] input) {
     if (input.length < 2) {
       return true;
     }
 
-    for (int i = 1 ; i < input.length ; i++) {
-      if (input[i-1] > input[i]) {
+    for (int i = 1; i < input.length; i++) {
+      if (input[i - 1] > input[i]) {
         return false;
       }
     }
@@ -158,7 +208,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
