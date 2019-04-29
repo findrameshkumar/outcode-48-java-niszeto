@@ -83,11 +83,22 @@ class BasicSort {
     return input;
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: n^2
+  // Auxiliary Space Complexity: 1
   public static int[] bubble(int[] input) {
-    // YOUR WORK HERE
-    return new int[0];
+    if (input.length == 0) {
+      return input;
+    }
+
+    for (int pass = 1; pass < input.length; pass++) {
+      for (int index = 0; index < input.length - 1; index++) {
+        if (input[index] > input[index + 1]) {
+          swap(input, index, index + 1);
+        }
+      }
+    }
+
+    return input;
   }
 
   public static void swap(int[] array, int firstIndex, int secondIndex) {
