@@ -1,3 +1,4 @@
+
 /**
  *  Homework 07 - Quadratic Sorts
  *
@@ -45,14 +46,27 @@ class BasicSort {
     return new int[0];
   }
 
-
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: n^2
+  // Auxiliary Space Complexity: 1
   public static int[] selection(int[] input) {
-    // YOUR WORK HERE
-    return new int[0];
-  }
+    if (input.length == 0) {
+      return input;
+    }
 
+    for (int sortedIndex = 0; sortedIndex < input.length; sortedIndex++) {
+      int currentMinimumIndex = sortedIndex;
+
+      for (int unsortedIndex = sortedIndex + 1; unsortedIndex < input.length; unsortedIndex++) {
+        if (input[currentMinimumIndex] > input[unsortedIndex]) {
+          currentMinimumIndex = unsortedIndex;
+        }
+      }
+
+      swap(input, sortedIndex, currentMinimumIndex);
+    }
+
+    return input;
+  }
 
   // Time Complexity:
   // Auxiliary Space Complexity:
@@ -60,11 +74,17 @@ class BasicSort {
     // YOUR WORK HERE
     return new int[0];
   }
+
+  public static void swap(int[] array, int firstIndex, int secondIndex) {
+    int temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
+  }
+
 }
 
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -78,22 +98,23 @@ class Main {
 
   public static void main(String[] args) {
 
-    // instantiate the testing of each module by resetting count and printing title of module
-    int[] testCount = {0, 0};
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    int[] testCount = { 0, 0 };
     System.out.println("Insertion Sort Tests");
 
     // tests are in the form as shown
     assertTest(testCount, "should sort example input", new Test() {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
-        return arraysEqual(basicSort.insertion(new int[]{3, 9, 1, 4, 7}), new int[]{1, 3, 4, 7, 9});
+        return arraysEqual(basicSort.insertion(new int[] { 3, 9, 1, 4, 7 }), new int[] { 1, 3, 4, 7, 9 });
       }
     });
 
     assertTest(testCount, "should sort single-element input", new Test() {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
-        return arraysEqual(basicSort.insertion(new int[]{10}), new int[]{10});
+        return arraysEqual(basicSort.insertion(new int[] { 10 }), new int[] { 10 });
       }
     });
 
@@ -101,7 +122,7 @@ class Main {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
         int[] input = new int[1000];
-        for (int i = 0 ; i < input.length ; i++) {
+        for (int i = 0; i < input.length; i++) {
           input[i] = (int) Math.floor(Math.random() * 1000);
         }
 
@@ -116,7 +137,6 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Selection Sort Tests");
@@ -124,14 +144,14 @@ class Main {
     assertTest(testCount, "should sort example input", new Test() {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
-        return arraysEqual(basicSort.selection(new int[]{3, 9, 1, 4, 7}), new int[]{1, 3, 4, 7, 9});
+        return arraysEqual(basicSort.selection(new int[] { 3, 9, 1, 4, 7 }), new int[] { 1, 3, 4, 7, 9 });
       }
     });
 
     assertTest(testCount, "should sort single-element input", new Test() {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
-        return arraysEqual(basicSort.selection(new int[]{10}), new int[]{10});
+        return arraysEqual(basicSort.selection(new int[] { 10 }), new int[] { 10 });
       }
     });
 
@@ -139,7 +159,7 @@ class Main {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
         int[] input = new int[1000];
-        for (int i = 0 ; i < input.length ; i++) {
+        for (int i = 0; i < input.length; i++) {
           input[i] = (int) Math.floor(Math.random() * 1000);
         }
 
@@ -154,7 +174,6 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Bubble Sort Tests");
@@ -163,14 +182,14 @@ class Main {
     assertTest(testCount, "should sort example input", new Test() {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
-        return arraysEqual(basicSort.bubble(new int[]{3, 9, 1, 4, 7}), new int[]{1, 3, 4, 7, 9});
+        return arraysEqual(basicSort.bubble(new int[] { 3, 9, 1, 4, 7 }), new int[] { 1, 3, 4, 7, 9 });
       }
     });
 
     assertTest(testCount, "should sort single-element input", new Test() {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
-        return arraysEqual(basicSort.bubble(new int[]{10}), new int[]{10});
+        return arraysEqual(basicSort.bubble(new int[] { 10 }), new int[] { 10 });
       }
     });
 
@@ -178,7 +197,7 @@ class Main {
       public boolean execute() {
         BasicSort basicSort = new BasicSort();
         int[] input = new int[1000];
-        for (int i = 0 ; i < input.length ; i++) {
+        for (int i = 0; i < input.length; i++) {
           input[i] = (int) Math.floor(Math.random() * 1000);
         }
 
@@ -201,7 +220,7 @@ class Main {
       return false;
     }
 
-    for (int i = 0 ; i < arr1.length ; i++) {
+    for (int i = 0; i < arr1.length; i++) {
       if (arr1[i] != arr2[i]) {
         return false;
       }
@@ -216,8 +235,8 @@ class Main {
       return true;
     }
 
-    for (int i = 1 ; i < input.length ; i++) {
-      if (input[i-1] > input[i]) {
+    for (int i = 1; i < input.length; i++) {
+      if (input[i - 1] > input[i]) {
         return false;
       }
     }
@@ -235,7 +254,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
