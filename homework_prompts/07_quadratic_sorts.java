@@ -39,11 +39,26 @@ import java.util.*;
 
 class BasicSort {
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: n^2
+  // Auxiliary Space Complexity: 1
   public static int[] insertion(int[] input) {
-    // YOUR WORK HERE
-    return new int[0];
+    if (input.length == 0) {
+      return input;
+    }
+
+    for (int index = 0; index < input.length; index++) {
+      int value = input[index];
+      int hole = index;
+
+      while (hole > 0 && input[hole - 1] > value) {
+        swap(input, hole, hole - 1);
+        hole--;
+      }
+
+      input[hole] = value;
+    }
+
+    return input;
   }
 
   // Time Complexity: n^2
