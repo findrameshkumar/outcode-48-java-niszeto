@@ -1,3 +1,4 @@
+
 /**
  *  Homework 09 - Linked List
  *
@@ -60,49 +61,104 @@ class ListNode {
   public int value;
   public ListNode next;
 
-  public ListNode(int value){
-    // YOUR WORK HERE
+  public ListNode(int value) {
+    this.value = value;
   }
 }
-
 
 class LinkedList {
   public int length = 0;
   public ListNode head;
   public ListNode tail;
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public void append(int value){
-    // YOUR WORK HERE
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
+  public void append(int value) {
+    ListNode newNode = new ListNode(value);
+
+    if (this.length == 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else if (this.length >= 1) {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+
+    this.length++;
   }
 
-
   // Time Complexity:
   // Auxiliary Space Complexity:
-  public void insert(int value, int index){
-    // YOUR WORK HERE
+  public void insert(int value, int index) {
+    if (index <= this.length && index >= 0) {
+      ListNode newNode = new ListNode(value);
+      if (this.length == 0) {
+        this.head = newNode;
+        this.tail = newNode;
+        this.length++;
+      } else if (index == this.length) {
+        this.tail.next = newNode;
+        this.tail = newNode;
+        this.length++;
+      } else {
+        if (index == 0) {
+          newNode.next = this.head;
+          this.head = newNode;
+        }
+
+        // ListNode currentNode = this.head;
+        // ListNode previousNode = null;
+        // int count = 0;
+        // System.out.println("Head : " + this.head.value);
+
+        // while(count < index){
+        // System.out.println("Current : " + currentNode.value);
+        // previousNode = currentNode;
+        // currentNode = currentNode.next;
+        // System.out.println("Current After : " + previousNode.value);
+        // count++;
+        // }
+
+        // previousNode.next = newNode;
+        // newNode.next = currentNode;
+      }
+    }
   }
 
-
   // Time Complexity:
   // Auxiliary Space Complexity:
-  public void delete(int index){
-    // YOUR WORK HERE
+  public void delete(int index) {
+    if (index < this.length) {
+      ListNode currentNode = this.head;
+      int count = 0;
+
+      if (count + 1 != index) {
+        currentNode = currentNode.next;
+        count++;
+      }
+
+      currentNode.next = currentNode.next.next;
+    }
   }
 
+  // Time Complexity: n
+  // Auxiliary Space Complexity: 1
+  public boolean contains(int value) {
+    ListNode currentNode = this.head;
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public boolean contains(int value){
-    // YOUR WORK HERE
+    while (currentNode != null) {
+      if (currentNode.value == value) {
+        return true;
+      }
+
+      currentNode = currentNode.next;
+    }
     return false;
   }
 }
 
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -111,12 +167,12 @@ class Main {
 
   // an interface to perform tests
   public interface Test {
-      public boolean execute();
+    public boolean execute();
   }
 
   public static void main(String[] args) {
 
-    int[] testCount = {0, 0};
+    int[] testCount = { 0, 0 };
     System.out.println("ListNode Class");
 
     assertTest(testCount, "able to create an instance", new Test() {
@@ -163,7 +219,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -235,7 +290,6 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("LinkedList Insert Method");
@@ -255,58 +309,57 @@ class Main {
     });
 
     assertTest(testCount, "able to insert a node into empty linked list", new Test() {
-        public boolean execute() {
-          LinkedList linkedList = new LinkedList();
-          try {
-            linkedList.insert(5,0);
-            return linkedList.length == 1 && linkedList.head.value == 5 && linkedList.tail.value == 5;
-          } catch (Exception e) {
-            return false;
-          }
+      public boolean execute() {
+        LinkedList linkedList = new LinkedList();
+        try {
+          linkedList.insert(5, 0);
+          return linkedList.length == 1 && linkedList.head.value == 5 && linkedList.tail.value == 5;
+        } catch (Exception e) {
+          return false;
         }
+      }
     });
 
     assertTest(testCount, "able to insert a node after another node", new Test() {
-        public boolean execute() {
-          LinkedList linkedList = new LinkedList();
-          try {
-            linkedList.insert(5,0);
-            linkedList.insert(10, 1);
-            return linkedList.length == 2 && linkedList.head.value == 5 && linkedList.tail.value == 10;
-          } catch (Exception e) {
-            return false;
-          }
+      public boolean execute() {
+        LinkedList linkedList = new LinkedList();
+        try {
+          linkedList.insert(5, 0);
+          linkedList.insert(10, 1);
+          return linkedList.length == 2 && linkedList.head.value == 5 && linkedList.tail.value == 10;
+        } catch (Exception e) {
+          return false;
         }
+      }
     });
 
     assertTest(testCount, "able to insert a node before another node", new Test() {
-        public boolean execute() {
-          LinkedList linkedList = new LinkedList();
-          try {
-            linkedList.insert(5,0);
-            linkedList.insert(10,0);
-            return linkedList.length == 2 && linkedList.head.value == 10 && linkedList.tail.value == 5;
-          } catch (Exception e) {
-            return false;
-          }
+      public boolean execute() {
+        LinkedList linkedList = new LinkedList();
+        try {
+          linkedList.insert(5, 0);
+          linkedList.insert(10, 0);
+          return linkedList.length == 2 && linkedList.head.value == 10 && linkedList.tail.value == 5;
+        } catch (Exception e) {
+          return false;
         }
+      }
     });
 
     assertTest(testCount, "does not insert a node if index is out of bounds linked list", new Test() {
-        public boolean execute() {
-          LinkedList linkedList = new LinkedList();
-          try {
-            linkedList.insert(5,-1);
-            linkedList.insert(10,3);
-            return linkedList.length == 0 && linkedList.head == null && linkedList.tail == null;
-          } catch (Exception e) {
-            return false;
-          }
+      public boolean execute() {
+        LinkedList linkedList = new LinkedList();
+        try {
+          linkedList.insert(5, -1);
+          linkedList.insert(10, 3);
+          return linkedList.length == 0 && linkedList.head == null && linkedList.tail == null;
+        } catch (Exception e) {
+          return false;
         }
+      }
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -366,7 +419,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -444,7 +496,6 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("LinkedList Contains Method");
@@ -501,10 +552,11 @@ class Main {
 
     try {
       if (test.execute()) {
-          pass = " true";
-          count[0]++;
+        pass = " true";
+        count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
