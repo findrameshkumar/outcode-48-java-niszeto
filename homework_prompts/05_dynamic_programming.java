@@ -51,10 +51,10 @@ class Problems {
   // Auxiliary Space Complexity:
 
   public static int coinSum(int[] coins, int total) {
-    return coinSumHelper(coins, total, 0);
+    return coinSumHelper(coins, total, 0, new HashMap<String, Integer>());
   }
 
-  private static int coinSumHelper(int[] coins, int total, int index) {
+  private static int coinSumHelper(int[] coins, int total, int index, HashMap memo) {
 
     if (total == 0) {
       return 1;
@@ -64,14 +64,22 @@ class Problems {
       return 0;
     }
 
+    String key = total + "-" + index;
+
+    if (memo.containsKey(key)) {
+      return (int) memo.get(key);
+    }
+
     int amountWithCoin = 0;
     int differentWaysToMakeChange = 0;
 
     while (amountWithCoin <= total) {
       int remaining = total - amountWithCoin;
-      differentWaysToMakeChange = differentWaysToMakeChange + coinSumHelper(coins, remaining, index + 1);
+      differentWaysToMakeChange = differentWaysToMakeChange + coinSumHelper(coins, remaining, index + 1, memo);
       amountWithCoin = amountWithCoin + coins[index];
     }
+
+    memo.put(key, differentWaysToMakeChange);
 
     return differentWaysToMakeChange;
   }
