@@ -54,7 +54,7 @@ class Problems {
     return coinSumHelper(coins, total, 0, new HashMap<String, Integer>());
   }
 
-  private static int coinSumHelper(int[] coins, int total, int index, HashMap memo) {
+  private static int coinSumHelper(int[] coins, int total, int index, HashMap<String, Integer> memo) {
 
     if (total == 0) {
       return 1;
