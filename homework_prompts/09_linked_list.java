@@ -87,57 +87,69 @@ class LinkedList {
     this.length++;
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: n
+  // Auxiliary Space Complexity: 1
   public void insert(int value, int index) {
-    if (index <= this.length && index >= 0) {
+    if (index >= 0 && index <= this.length) {
       ListNode newNode = new ListNode(value);
+
       if (this.length == 0) {
         this.head = newNode;
         this.tail = newNode;
+        this.length++;
+      } else if (index == 0) {
+        newNode.next = this.head;
+        this.head = newNode;
         this.length++;
       } else if (index == this.length) {
         this.tail.next = newNode;
         this.tail = newNode;
         this.length++;
       } else {
-        if (index == 0) {
-          newNode.next = this.head;
-          this.head = newNode;
+        int count = 0;
+        ListNode previousNode = null;
+        ListNode currentNode = this.head;
+
+        while (count < index) {
+          previousNode = currentNode;
+          currentNode = currentNode.next;
+          count++;
         }
 
-        // ListNode currentNode = this.head;
-        // ListNode previousNode = null;
-        // int count = 0;
-        // System.out.println("Head : " + this.head.value);
-
-        // while(count < index){
-        // System.out.println("Current : " + currentNode.value);
-        // previousNode = currentNode;
-        // currentNode = currentNode.next;
-        // System.out.println("Current After : " + previousNode.value);
-        // count++;
-        // }
-
-        // previousNode.next = newNode;
-        // newNode.next = currentNode;
+        previousNode.next = newNode;
+        newNode.next = currentNode;
+        this.length++;
       }
     }
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: n
+  // Auxiliary Space Complexity: 1
   public void delete(int index) {
-    if (index < this.length) {
-      ListNode currentNode = this.head;
-      int count = 0;
+    if (index >= 0 && index < this.length) {
+      if (this.length == 1) {
+        this.head = null;
+        this.tail = null;
+        this.length--;
+      } else if (index == 0) {
+        this.head = this.head.next;
+        this.length--;
+      } else {
+        int count = 0;
+        ListNode currentNode = this.head;
 
-      if (count + 1 != index) {
-        currentNode = currentNode.next;
-        count++;
+        while (count + 1 < index) {
+          currentNode = currentNode.next;
+          count++;
+        }
+
+        if (index + 1 == this.length) {
+          this.tail = currentNode;
+        }
+
+        currentNode.next = null;
+        this.length--;
       }
-
-      currentNode.next = currentNode.next.next;
     }
   }
 
