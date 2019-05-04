@@ -1,3 +1,4 @@
+
 /**
  *  Homework 10 - Binary Search Tree
  *
@@ -54,7 +55,9 @@ class TreeNode {
   public TreeNode right;
 
   public TreeNode(int value) {
-    // YOUR WORK HERE
+    this.value = value;
+    this.left = null;
+    this.right = null;
   }
 
 }
@@ -64,16 +67,15 @@ class BinarySearchTree {
   public int size;
 
   public BinarySearchTree() {
-    // YOUR WORK HERE
+    this.root = null;
+    this.size = 0;
   }
-
 
   // Time Complexity:
   // Auxiliary Space Complexity:
   public void insert(int value) {
     // YOUR WORK HERE
   }
-
 
   // Time Complexity:
   // Auxiliary Space Complexity:
@@ -84,9 +86,8 @@ class BinarySearchTree {
 
 }
 
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -100,7 +101,7 @@ class Main {
 
   public static void main(String[] args) {
 
-    int[] testCount = {0, 0};
+    int[] testCount = { 0, 0 };
     System.out.println("TreeNode Class");
 
     // tests are in the form as shown
@@ -182,7 +183,6 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Binary Search Tree Class");
@@ -233,7 +233,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -355,7 +354,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
