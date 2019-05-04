@@ -74,13 +74,52 @@ class BinarySearchTree {
   // Time Complexity:
   // Auxiliary Space Complexity:
   public void insert(int value) {
-    // YOUR WORK HERE
+    TreeNode newNode = new TreeNode(value);
+
+    if (this.size == 0) {
+      this.root = newNode;
+      this.size++;
+    } else {
+      TreeNode currentNode = this.root;
+
+      while (currentNode != null) {
+        if (currentNode.value > value) {
+          if (currentNode.left == null) {
+            currentNode.left = newNode;
+            this.size++;
+            return;
+          } else {
+            currentNode = currentNode.left;
+          }
+        } else if (currentNode.value < value) {
+          if (currentNode.right == null) {
+            currentNode.right = newNode;
+            this.size++;
+            return;
+          } else {
+            currentNode = currentNode.right;
+          }
+        }
+      }
+
+    }
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: logn
+  // Auxiliary Space Complexity: 1
   public boolean search(int value) {
-    // YOUR WORK HERE
+    TreeNode currentNode = this.root;
+
+    while (currentNode != null) {
+      if (currentNode.value == value) {
+        return true;
+      } else if (currentNode.value > value) {
+        currentNode = currentNode.left;
+      } else if (currentNode.value < value) {
+        currentNode = currentNode.right;
+      }
+    }
+
     return false;
   }
 
