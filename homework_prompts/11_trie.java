@@ -1,3 +1,4 @@
+
 /**
  *  Homework 11 - Trie
  *
@@ -51,7 +52,6 @@
 
 import java.util.*;
 
-
 // DO NOT EDIT
 // TrieNode class
 class TrieNode {
@@ -60,23 +60,45 @@ class TrieNode {
   public boolean end = false;
 
   public TrieNode(Character value) {
-      this.value = value;
+    this.value = value;
   }
 }
 
 class Trie {
 
-
   public TrieNode root = new TrieNode('\u0000');
 
   public boolean insert(String word) {
-    // YOUR WORK HERE
-    return false;
+    TrieNode currentNode = this.root;
+
+    for (int index = 0; index < word.length(); index++) {
+      char currentCharacter = word.charAt(index);
+      if (!currentNode.next.containsKey(currentCharacter)) {
+        TrieNode newNode = new TrieNode(currentCharacter);
+        currentNode.next.put(currentCharacter, newNode);
+      }
+
+      currentNode = currentNode.next.get(currentCharacter);
+    }
+
+    currentNode.end = true;
+    return currentNode.end;
   }
 
   public boolean isWord(String word) {
-    // YOUR WORK HERE
-    return false;
+    TrieNode currentNode = this.root;
+
+    for (int index = 0; index < word.length(); index++) {
+      char currentCharacter = word.charAt(index);
+
+      if (!currentNode.next.containsKey(currentCharacter)) {
+        return false;
+      }
+
+      currentNode = currentNode.next.get(currentCharacter);
+    }
+
+    return currentNode.end;
   }
 
   public boolean isPrefix(String prefix) {
@@ -95,11 +117,8 @@ class Trie {
 
 }
 
-
-
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -113,8 +132,9 @@ class Main {
 
   public static void main(String[] args) {
 
-    // instantiate the testing of each module by resetting count and printing title of module
-    int[] testCount = {0, 0};
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    int[] testCount = { 0, 0 };
     System.out.println("TrieNode Class");
 
     // tests are in the form as shown
@@ -172,13 +192,11 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Trie Class");
-
 
     assertTest(testCount, "able to create an instance", new Test() {
       public boolean execute() {
@@ -220,12 +238,9 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Trie Insert Method");
-
 
     assertTest(testCount, "has insert method", new Test() {
       public boolean execute() {
@@ -244,7 +259,9 @@ class Main {
       public boolean execute() {
         Trie trie = new Trie();
         trie.insert("cat");
-        return trie.root.next.containsKey('c') && trie.root.next.get('c').next.containsKey('a') && trie.root.next.get('c').next.get('a').next.containsKey('t') && (trie.root.next.get('c').next.get('a').next.get('t').end == true);
+        return trie.root.next.containsKey('c') && trie.root.next.get('c').next.containsKey('a')
+            && trie.root.next.get('c').next.get('a').next.containsKey('t')
+            && (trie.root.next.get('c').next.get('a').next.get('t').end == true);
       }
     });
 
@@ -253,20 +270,19 @@ class Main {
         Trie trie = new Trie();
         trie.insert("cat");
         trie.insert("car");
-        return trie.root.next.containsKey('c') && trie.root.next.get('c').next.containsKey('a') && trie.root.next.get('c').next.get('a').next.containsKey('t') && (trie.root.next.get('c').next.get('a').next.get('t').end == true) &&
-        trie.root.next.get('c').next.get('a').next.containsKey('r') &&
-        (trie.root.next.get('c').next.get('a').next.get('r').end == true);
+        return trie.root.next.containsKey('c') && trie.root.next.get('c').next.containsKey('a')
+            && trie.root.next.get('c').next.get('a').next.containsKey('t')
+            && (trie.root.next.get('c').next.get('a').next.get('t').end == true)
+            && trie.root.next.get('c').next.get('a').next.containsKey('r')
+            && (trie.root.next.get('c').next.get('a').next.get('r').end == true);
       }
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Trie IsWord Method");
-
 
     assertTest(testCount, "has isWord method", new Test() {
       public boolean execute() {
@@ -322,17 +338,16 @@ class Main {
       }
     });
 
-    assertTest(testCount, "should return false if a smaller word was not added, but exists in a larger word", new Test() {
-      public boolean execute() {
-        Trie trie = new Trie();
-        trie.insert("cats");
-        return trie.isWord("cat") == false;
-      }
-    });
+    assertTest(testCount, "should return false if a smaller word was not added, but exists in a larger word",
+        new Test() {
+          public boolean execute() {
+            Trie trie = new Trie();
+            trie.insert("cats");
+            return trie.isWord("cat") == false;
+          }
+        });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -385,7 +400,8 @@ class Main {
         trie.insert("cars");
         ArrayList<String> results = trie.startsWith("ca");
 
-        return results instanceof ArrayList && results.indexOf("cat") != -1 && results.indexOf("cats") != -1 && results.indexOf("catnip") != -1 && results.indexOf("car") != -1 && results.indexOf("cars") != -1;
+        return results instanceof ArrayList && results.indexOf("cat") != -1 && results.indexOf("cats") != -1
+            && results.indexOf("catnip") != -1 && results.indexOf("car") != -1 && results.indexOf("cars") != -1;
       }
     });
 
@@ -402,13 +418,13 @@ class Main {
 
         ArrayList<String> results = trie.startsWith("");
 
-        return results instanceof ArrayList && results.indexOf("cat") != -1 && results.indexOf("cats") != -1 && results.indexOf("catnip") != -1 && results.indexOf("foo") != -1 && results.indexOf("hello") != -1 && results.indexOf("hell") != -1 && results.indexOf("he") != -1;
+        return results instanceof ArrayList && results.indexOf("cat") != -1 && results.indexOf("cats") != -1
+            && results.indexOf("catnip") != -1 && results.indexOf("foo") != -1 && results.indexOf("hello") != -1
+            && results.indexOf("hell") != -1 && results.indexOf("he") != -1;
       }
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -452,9 +468,7 @@ class Main {
         trie.insert("hell");
         trie.insert("he");
         trie.remove("hell");
-        return trie.isWord("he") == true &&
-               trie.isWord("hello") == true &&
-               trie.isWord("hell") == false;
+        return trie.isWord("he") == true && trie.isWord("hello") == true && trie.isWord("hell") == false;
       }
     });
 
@@ -465,17 +479,14 @@ class Main {
         trie.insert("cats");
         trie.insert("catnip");
         trie.remove("catnip");
-        return trie.isWord("cat") == true &&
-               trie.isWord("cats") == true &&
-               trie.isWord("catnip") == false && (trie.root.next.get('c').next.get('a').next.get('t').next.get('n') == null );
+        return trie.isWord("cat") == true && trie.isWord("cats") == true && trie.isWord("catnip") == false
+            && (trie.root.next.get('c').next.get('a').next.get('t').next.get('n') == null);
       }
     });
-
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
   }
-
 
   // do not edit below, this is to wrap the test and check for exceptions
   private static void assertTest(int[] count, String name, Test test) {
@@ -487,7 +498,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
