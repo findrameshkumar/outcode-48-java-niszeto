@@ -102,13 +102,89 @@ class Trie {
   }
 
   public boolean isPrefix(String prefix) {
-    // YOUR WORK HERE
-    return false;
+    TrieNode currentNode = this.root;
+    char currentCharacter = prefix.charAt(0);
+
+    if (!currentNode.next.containsKey(currentCharacter)) {
+      return false;
+    }
+
+    currentNode = currentNode.next.get(currentCharacter);
+
+    for (int index = 1; index < prefix.length(); index++) {
+      currentCharacter = prefix.charAt(index);
+
+      if (!currentNode.next.containsKey(currentCharacter)) {
+        return false;
+      }
+
+      currentNode = currentNode.next.get(currentCharacter);
+    }
+
+    return true;
   }
 
   public ArrayList<String> startsWith(String prefix) {
-    // YOUR WORK HERE
-    return new ArrayList<String>();
+    System.out.println(prefix);
+    // if(prefix.length() == 0){
+    // System.out.println("empty string");
+    // System.out.println(isPrefix(prefix));
+    // }
+    if (isPrefix(prefix)) {
+      StringBuilder currentString = new StringBuilder();
+      ArrayList<String> words = new ArrayList<>();
+      char currentCharacter = prefix.charAt(0);
+      currentString.append(currentCharacter);
+      TrieNode currentNode = this.root.next.get(currentCharacter);
+
+      for (int index = 1; index < prefix.length(); index++) {
+        currentCharacter = prefix.charAt(index);
+        if (index + 1 != prefix.length()) {
+          currentString.append(currentCharacter);
+        }
+        currentNode = currentNode.next.get(currentCharacter);
+      }
+      // current node is the last letter of the prefix
+
+      // System.out.println(currentString.toString());
+      // System.out.println(currentNode.value);
+      Stack<TrieNode> stack = new Stack<>();
+      stack.push(currentNode);
+
+      while (!stack.isEmpty()) {
+        TrieNode current = stack.pop();
+        currentString.append(current.value);
+
+        if (current.end) {
+          words.add(currentString.toString());
+        }
+
+        for (Map.Entry<Character, TrieNode> entry : current.next.entrySet()) {
+          stack.push(entry.getValue());
+        }
+      }
+
+      System.out.println(words.toString());
+      return words;
+    }
+
+    return null;
+  }
+
+  private void createStrings(StringBuilder currentString, ArrayList<String> words, TrieNode currentNode) {
+    if (currentNode == null) {
+      return;
+    }
+
+    currentString.append(currentNode.value);
+
+    if (currentNode.end) {
+      words.add(currentString.toString());
+    }
+
+    for (Map.Entry<Character, TrieNode> entry : currentNode.next.entrySet()) {
+      createStrings(currentString, words, entry.getValue());
+    }
   }
 
   public void remove(String word) {
