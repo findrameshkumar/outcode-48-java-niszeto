@@ -125,65 +125,33 @@ class Trie {
   }
 
   public ArrayList<String> startsWith(String prefix) {
-    System.out.println(prefix);
-    // if(prefix.length() == 0){
-    // System.out.println("empty string");
-    // System.out.println(isPrefix(prefix));
-    // }
-    if (isPrefix(prefix)) {
-      StringBuilder currentString = new StringBuilder();
-      ArrayList<String> words = new ArrayList<>();
-      char currentCharacter = prefix.charAt(0);
-      currentString.append(currentCharacter);
-      TrieNode currentNode = this.root.next.get(currentCharacter);
+    TrieNode currentNode = this.root;
 
-      for (int index = 1; index < prefix.length(); index++) {
-        currentCharacter = prefix.charAt(index);
-        if (index + 1 != prefix.length()) {
-          currentString.append(currentCharacter);
-        }
-        currentNode = currentNode.next.get(currentCharacter);
+    for (int index = 0; index < prefix.length(); index++) {
+      char currentCharacter = prefix.charAt(index);
+      currentNode = currentNode.next.get(currentCharacter);
+      if (currentNode == null) {
+        return null;
       }
-      // current node is the last letter of the prefix
-
-      // System.out.println(currentString.toString());
-      // System.out.println(currentNode.value);
-      Stack<TrieNode> stack = new Stack<>();
-      stack.push(currentNode);
-
-      while (!stack.isEmpty()) {
-        TrieNode current = stack.pop();
-        currentString.append(current.value);
-
-        if (current.end) {
-          words.add(currentString.toString());
-        }
-
-        for (Map.Entry<Character, TrieNode> entry : current.next.entrySet()) {
-          stack.push(entry.getValue());
-        }
-      }
-
-      System.out.println(words.toString());
-      return words;
     }
 
-    return null;
+    ArrayList<String> words = new ArrayList<>();
+    createStrings(prefix, words, currentNode);
+
+    return words.isEmpty() ? null : words;
   }
 
-  private void createStrings(StringBuilder currentString, ArrayList<String> words, TrieNode currentNode) {
+  private void createStrings(String currentString, ArrayList<String> words, TrieNode currentNode) {
     if (currentNode == null) {
       return;
     }
 
-    currentString.append(currentNode.value);
-
     if (currentNode.end) {
-      words.add(currentString.toString());
+      words.add(currentString);
     }
 
-    for (Map.Entry<Character, TrieNode> entry : currentNode.next.entrySet()) {
-      createStrings(currentString, words, entry.getValue());
+    for (TrieNode node : currentNode.next.values()) {
+      createStrings(currentString + node.value, words, node);
     }
   }
 
