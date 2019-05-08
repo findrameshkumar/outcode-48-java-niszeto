@@ -129,11 +129,7 @@ class Graph {
   // Time Complexity: 1
   // Auxiliary Space Complexity: 1
   public List<Integer> neighbors(Integer id) {
-    if (this.storage.containsKey(id)) {
-      return this.storage.get(id);
-    }
-
-    return null;
+    return this.storage.get(id);
   }
 
 }
