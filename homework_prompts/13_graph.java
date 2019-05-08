@@ -1,3 +1,4 @@
+
 /**
  *  Homework 13 - Graph
  *
@@ -75,51 +76,70 @@ class Graph {
 
   public Map<Integer, List<Integer>> storage = new HashMap<>();
 
-  //   Time Complexity:
-  //   Auxiliary Space Complexity:
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
   public boolean addVertex(Integer id) {
-    // YOUR WORK HERE
+    if (this.storage.containsKey(id)) {
+      return false;
+    }
+
+    this.storage.put(id, new ArrayList<Integer>());
     return true;
   }
 
   public boolean removeVertex(Integer id) {
-    // YOUR WORK HERE
-    return true;
+    if (this.storage.containsKey(id)) {
+      this.storage.remove(id);
+      return true;
+    }
+
+    return false;
   }
 
-  //   Time Complexity:
-  //   Auxiliary Space Complexity:
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
   public boolean addEdge(Integer id1, Integer id2) {
-    // YOUR WORK HERE
-    return true;
+    if (this.storage.containsKey(id1) && this.storage.containsKey(id2)) {
+      List<Integer> firstVertexList = this.storage.get(id1);
+
+      return firstVertexList.add(id2);
+    }
+
+    return false;
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
   public boolean removeEdge(Integer id1, Integer id2) {
-    // YOUR WORK HERE
-    return true;
+    if (this.storage.containsKey(id1) && this.storage.containsKey(id2)) {
+      List<Integer> firstVertexList = this.storage.get(id1);
+
+      return firstVertexList.remove(id2);
+    }
+
+    return false;
   }
 
-  //   Time Complexity:
-  //   Auxiliary Space Complexity:
+  // Time Complexity:1
+  // Auxiliary Space Complexity: 1
   public boolean isVertex(Integer id) {
-    // YOUR WORK HERE
-    return true;
+    return this.storage.containsKey(id);
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
   public List<Integer> neighbors(Integer id) {
-    // YOUR WORK HERE
-    return new ArrayList<Integer>();
+    if (this.storage.containsKey(id)) {
+      return this.storage.get(id);
+    }
+
+    return null;
   }
 
 }
 
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -133,7 +153,7 @@ class Main {
 
   public static void main(String[] args) {
 
-    int[] testCount = {0, 0};
+    int[] testCount = { 0, 0 };
     System.out.println("Vertex Class");
 
     assertTest(testCount, "able to create an instance", new Test() {
@@ -160,8 +180,8 @@ class Main {
       public boolean execute() {
         try {
           Graph graph = new Graph();
-          return graph.getClass().getDeclaredField("storage").getType().isAssignableFrom(Map.class) ||
-                 graph.getClass().getDeclaredField("storage").getType().isAssignableFrom(HashMap.class);
+          return graph.getClass().getDeclaredField("storage").getType().isAssignableFrom(Map.class)
+              || graph.getClass().getDeclaredField("storage").getType().isAssignableFrom(HashMap.class);
         } catch (Exception e) {
           e.printStackTrace();
           return false;
@@ -182,7 +202,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -219,8 +238,7 @@ class Main {
         try {
           Graph graph = new Graph();
           graph.addVertex(5);
-          return graph.storage.get(5) instanceof List ||
-                 graph.storage.get(5) instanceof ArrayList;
+          return graph.storage.get(5) instanceof List || graph.storage.get(5) instanceof ArrayList;
         } catch (Exception e) {
           e.printStackTrace();
           return false;
@@ -234,9 +252,8 @@ class Main {
           Graph graph = new Graph();
           graph.addVertex(5);
           graph.addVertex(10);
-          return graph.storage.size() == 2 &&
-                 graph.storage.get(10) instanceof List ||
-                 graph.storage.get(10) instanceof ArrayList;
+          return graph.storage.size() == 2 && graph.storage.get(10) instanceof List
+              || graph.storage.get(10) instanceof ArrayList;
         } catch (Exception e) {
           e.printStackTrace();
           return false;
@@ -259,7 +276,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -298,7 +314,6 @@ class Main {
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Graph addEdge method");
@@ -323,8 +338,7 @@ class Main {
           graph.addVertex(5);
           graph.addVertex(10);
           graph.addEdge(5, 10);
-          return graph.storage.get(5).size() == 1 &&
-                 graph.storage.get(10).size() == 0;
+          return graph.storage.get(5).size() == 1 && graph.storage.get(10).size() == 0;
         } catch (Exception e) {
           e.printStackTrace();
           return false;
@@ -356,7 +370,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -408,7 +421,7 @@ class Main {
 
     assertTest(testCount, "does not remove edge when edge does not exist", new Test() {
       public boolean execute() {
-        try{
+        try {
           Graph graph = new Graph();
           graph.addVertex(5);
           graph.addVertex(10);
@@ -424,7 +437,7 @@ class Main {
 
     assertTest(testCount, "returns false if edge does not exist", new Test() {
       public boolean execute() {
-        try{
+        try {
           Graph graph = new Graph();
           graph.addVertex(5);
           graph.addVertex(10);
@@ -438,7 +451,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -485,7 +497,6 @@ class Main {
     });
 
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
 
     testCount[0] = 0;
     testCount[1] = 0;
@@ -551,7 +562,6 @@ class Main {
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
   }
 
-
   // function for checking if arrays contain same elements
   // (do not need to be in the same order)
   private static boolean arraysMatching(Integer[] arr1, Integer[] arr2) {
@@ -561,7 +571,7 @@ class Main {
       Arrays.sort(arr1);
       Arrays.sort(arr2);
 
-      for (int i = 0 ; i < arr1.length ; i++) {
+      for (int i = 0; i < arr1.length; i++) {
         if (arr1[i] != arr2[i]) {
           return false;
         }
@@ -581,7 +591,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
