@@ -129,7 +129,19 @@ class Heap {
   // Time Complexity:
   // Auxiliary Space Complexity:
   public void bubbleUp(int index) {
-    // YOUR WORK HERE
+    int parentIndex = getParentIndex(index);
+  }
+
+  private int getParentIndex(int childIndex) {
+    return (childIndex - 1) / 2;
+  }
+
+  private int getLeftChildIndex(int parentIndex) {
+    return (2 * parentIndex) + 1;
+  }
+
+  private int getRightChildIndex(int parentIndex) {
+    return (2 * parentIndex) + 2;
   }
 
   // Time Complexity:
