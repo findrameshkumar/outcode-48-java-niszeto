@@ -1,3 +1,4 @@
+
 /*
   * Homework 12 - Heap
   *
@@ -78,76 +79,82 @@ class Heap {
   List<Integer> storage;
   String type;
 
-
   public Heap(String type) {
-    //YOUR WORK HERE
+    this.type = type;
+    this.storage = new ArrayList<>();
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public boolean compare(int a, int b){
-    //YOUR WORK HERE
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
+  public boolean compare(int a, int b) {
+    System.out.println("Type of heap : " + this.type);
+    System.out.println("A : " + a);
+    System.out.println("B : " + b);
+
+    if (this.type.equals("min")) {
+      return a < b;
+    } else if (this.type.equals("max")) {
+      return a > b;
+    }
+
     return false;
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public void swap(int index1, int index2){
-    //YOUR WORK HERE
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
+  public void swap(int index1, int index2) {
+    int temporary = this.storage.get(index1);
+    this.storage.set(index1, this.storage.get(index2));
+    this.storage.set(index2, temporary);
+  }
+
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
+  public int peak() {
+    return this.storage.get(0);
+  }
+
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
+  public int size() {
+    return this.storage.size();
   }
 
   // Time Complexity:
   // Auxiliary Space Complexity:
-  public int peak(){
-    //YOUR WORK HERE
+  public void insert(int value) {
+    // YOUR WORK HERE
+  }
+
+  // Time Complexity:
+  // Auxiliary Space Complexity:
+  public void bubbleUp(int index) {
+    // YOUR WORK HERE
+  }
+
+  // Time Complexity:
+  // Auxiliary Space Complexity:
+  public int removePeak() {
+    // YOUR WORK HERE
     return -1;
   }
 
   // Time Complexity:
   // Auxiliary Space Complexity:
-  public int size(){
-    //YOUR WORK HERE
-    return -1;
+  public void bubbleDown(int index) {
+    // YOUR WORK HERE
   }
 
   // Time Complexity:
   // Auxiliary Space Complexity:
-  public void insert(int value){
-    //YOUR WORK HERE
-  }
-
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public void bubbleUp(int index){
-    //YOUR WORK HERE
-  }
-
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public int removePeak(){
-    //YOUR WORK HERE
-    return -1;
-  }
-
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public void bubbleDown(int index){
-    //YOUR WORK HERE
-  }
-
-  // Time Complexity:
-  // Auxiliary Space Complexity:
-  public boolean remove(int value){
-    //YOUR WORK HERE
+  public boolean remove(int value) {
+    // YOUR WORK HERE
     return false;
   }
 }
 
-
-
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -161,8 +168,9 @@ class Main {
 
   public static void main(String[] args) {
 
-    // instantiate the testing of each module by resetting count and printing title of module
-    int[] testCount = {0, 0};
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    int[] testCount = { 0, 0 };
     System.out.println("Heap Class");
 
     // tests are in the form as shown
@@ -201,7 +209,8 @@ class Main {
       public boolean execute() {
         Heap heap = new Heap("max");
         try {
-          return heap.getClass().getDeclaredField("storage").getType().isAssignableFrom(List.class) || heap.getClass().getDeclaredField("storage").getType().isAssignableFrom(ArrayList.class);
+          return heap.getClass().getDeclaredField("storage").getType().isAssignableFrom(List.class)
+              || heap.getClass().getDeclaredField("storage").getType().isAssignableFrom(ArrayList.class);
         } catch (Exception e) {
           e.printStackTrace();
           return false;
@@ -226,9 +235,8 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap compare method");
@@ -247,48 +255,55 @@ class Main {
       }
     });
 
-    assertTest(testCount, "returns true for minheap if element at first argument index is less than element at second argument index", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("min");
-        heap.storage.add(1);
-        heap.storage.add(10);
-        return heap.compare(0, 1) == true;
-      }
-    });
+    assertTest(testCount,
+        "returns true for minheap if element at first argument index is less than element at second argument index",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("min");
+            heap.storage.add(1);
+            heap.storage.add(10);
+            return heap.compare(0, 1) == true;
+          }
+        });
 
-    assertTest(testCount, "returns false for minheap if element at first argument index is greater than element at second argument index", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("min");
-        heap.storage.add(10);
-        heap.storage.add(1);
-        return heap.compare(0, 1) == false;
-      }
-    });
+    assertTest(testCount,
+        "returns false for minheap if element at first argument index is greater than element at second argument index",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("min");
+            heap.storage.add(10);
+            heap.storage.add(1);
+            return heap.compare(0, 1) == false;
+          }
+        });
 
-    assertTest(testCount, "return true for maxheap if element at first argument index is greater than element at second argument index", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("max");
-        heap.storage.add(10);
-        heap.storage.add(1);
-        return heap.compare(0, 1) == true;
-      }
-    });
+    assertTest(testCount,
+        "return true for maxheap if element at first argument index is greater than element at second argument index",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("max");
+            heap.storage.add(10);
+            heap.storage.add(1);
+            return heap.compare(0, 1) == true;
+          }
+        });
 
-    assertTest(testCount, "return false for maxheap if element at first argument index is less than element at second argument index", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("max");
-        heap.storage.add(1);
-        heap.storage.add(10);
-        return heap.compare(0, 1) == false;
-      }
-    });
+    assertTest(testCount,
+        "return false for maxheap if element at first argument index is less than element at second argument index",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("max");
+            heap.storage.add(1);
+            heap.storage.add(10);
+            return heap.compare(0, 1) == false;
+          }
+        });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap swap method");
@@ -321,9 +336,8 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap peak method");
@@ -352,34 +366,35 @@ class Main {
       }
     });
 
-    assertTest(testCount, "upon building out your insert method, should return the smallest element for a minheap", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("min");
-        heap.insert(2);
-        heap.insert(5);
-        heap.insert(10);
-        heap.insert(1);
-        return heap.peak() == 1;
-      }
-    });
+    assertTest(testCount, "upon building out your insert method, should return the smallest element for a minheap",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("min");
+            heap.insert(2);
+            heap.insert(5);
+            heap.insert(10);
+            heap.insert(1);
+            return heap.peak() == 1;
+          }
+        });
 
-    assertTest(testCount, "upon building out your insert method, should return the largest element for a maxheap", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("max");
-        heap.insert(2);
-        heap.insert(5);
-        heap.insert(10);
-        heap.insert(1);
-        return heap.peak() == 10;
-      }
-    });
+    assertTest(testCount, "upon building out your insert method, should return the largest element for a maxheap",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("max");
+            heap.insert(2);
+            heap.insert(5);
+            heap.insert(10);
+            heap.insert(1);
+            return heap.peak() == 10;
+          }
+        });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap size method");
@@ -411,9 +426,8 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap insert method");
@@ -440,38 +454,41 @@ class Main {
       }
     });
 
-    assertTest(testCount, "should be able to insert multiple elements into a minheap and have peak element be smallest element", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("min");
-        heap.insert(5);
-        heap.insert(10);
-        heap.insert(7);
-        heap.insert(1);
-        heap.insert(8);
-        heap.insert(6);
-        return heap.peak() == 1;
-      }
-    });
+    assertTest(testCount,
+        "should be able to insert multiple elements into a minheap and have peak element be smallest element",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("min");
+            heap.insert(5);
+            heap.insert(10);
+            heap.insert(7);
+            heap.insert(1);
+            heap.insert(8);
+            heap.insert(6);
+            return heap.peak() == 1;
+          }
+        });
 
-    assertTest(testCount, "should be able to insert multiple elements into a maxheap and have peak element be largest element", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("max");
-        heap.insert(5);
-        heap.insert(10);
-        heap.insert(7);
-        heap.insert(1);
-        heap.insert(8);
-        heap.insert(6);
-        return heap.peak() == 10;
-      }
-    });
+    assertTest(testCount,
+        "should be able to insert multiple elements into a maxheap and have peak element be largest element",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("max");
+            heap.insert(5);
+            heap.insert(10);
+            heap.insert(7);
+            heap.insert(1);
+            heap.insert(8);
+            heap.insert(6);
+            return heap.peak() == 10;
+          }
+        });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap bubbleUp method");
@@ -490,48 +507,49 @@ class Main {
       }
     });
 
-    assertTest(testCount, "should be able to \'bubble up\' an element if its minheap condition is not fulfilled", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(2,4,7,6,9,10,8,1));
-        heap.bubbleUp(7);
-        return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6)));
-      }
-    });
+    assertTest(testCount, "should be able to \'bubble up\' an element if its minheap condition is not fulfilled",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("min");
+            heap.storage = new ArrayList<Integer>(Arrays.asList(2, 4, 7, 6, 9, 10, 8, 1));
+            heap.bubbleUp(7);
+            return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6)));
+          }
+        });
 
-    assertTest(testCount, "should be able to \'bubble up\' an element if its maxheap condition is not fulfilled", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(9,8,5,7,3,6,2,10));
-        heap.bubbleUp(7);
-        return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7)));
-      }
-    });
+    assertTest(testCount, "should be able to \'bubble up\' an element if its maxheap condition is not fulfilled",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("max");
+            heap.storage = new ArrayList<Integer>(Arrays.asList(9, 8, 5, 7, 3, 6, 2, 10));
+            heap.bubbleUp(7);
+            return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7)));
+          }
+        });
 
     assertTest(testCount, "should not perform bubbling up if minheap conditions are fulfilled", new Test() {
       public boolean execute() {
         Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6));
         heap.bubbleUp(7);
-        return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6)));
+        return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6)));
       }
     });
 
     assertTest(testCount, "should not perform bubbling up if maxheap conditions are fulfilled", new Test() {
       public boolean execute() {
         Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7));
         heap.bubbleUp(7);
-        return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7)));
+        return heap.storage.equals(new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7)));
       }
     });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap removePeak method");
@@ -541,7 +559,7 @@ class Main {
       public boolean execute() {
         Heap heap = new Heap("max");
         try {
-          heap.getClass().getMethod("removePeak", new Class[] { });
+          heap.getClass().getMethod("removePeak", new Class[] {});
           return true;
         } catch (Exception e) {
           e.printStackTrace();
@@ -559,30 +577,31 @@ class Main {
       }
     });
 
-    assertTest(testCount, "should be able to remove and return peak element for a minheap and rearrange minheap accordingly", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6));
-        int peak = heap.removePeak();
-        return peak == 1 && heap.storage.equals(new ArrayList<>(Arrays.asList(2,4,7,6,9,10,8)));
-      }
-    });
+    assertTest(testCount,
+        "should be able to remove and return peak element for a minheap and rearrange minheap accordingly", new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("min");
+            heap.storage = new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6));
+            int peak = heap.removePeak();
+            return peak == 1 && heap.storage.equals(new ArrayList<>(Arrays.asList(2, 4, 7, 6, 9, 10, 8)));
+          }
+        });
 
-    assertTest(testCount, "should be able to remove and return peak element for a maxheap and rearrange maxheap accordingly", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7));
-        int peak = heap.removePeak();
-        return peak == 10 && heap.storage.equals(new ArrayList<>(Arrays.asList(9,8,5,7,3,6,2)));
-      }
-    });
+    assertTest(testCount,
+        "should be able to remove and return peak element for a maxheap and rearrange maxheap accordingly", new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("max");
+            heap.storage = new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7));
+            int peak = heap.removePeak();
+            return peak == 10 && heap.storage.equals(new ArrayList<>(Arrays.asList(9, 8, 5, 7, 3, 6, 2)));
+          }
+        });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap bubbleDown method");
@@ -601,48 +620,49 @@ class Main {
       }
     });
 
-    assertTest(testCount, "should be able to \'bubble down\' an element if its minheap condition is not fulfilled", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(10,1,2,7,4,9,8,6));
-        heap.bubbleDown(0);
-        return heap.storage.equals(new ArrayList<>(Arrays.asList(1,4,2,7,10,9,8,6)));
-      }
-    });
+    assertTest(testCount, "should be able to \'bubble down\' an element if its minheap condition is not fulfilled",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("min");
+            heap.storage = new ArrayList<Integer>(Arrays.asList(10, 1, 2, 7, 4, 9, 8, 6));
+            heap.bubbleDown(0);
+            return heap.storage.equals(new ArrayList<>(Arrays.asList(1, 4, 2, 7, 10, 9, 8, 6)));
+          }
+        });
 
-    assertTest(testCount, "should be able to \'bubble down\' an element if its maxheap condition is not fulfilled", new Test() {
-      public boolean execute() {
-        Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(2,10,9,5,8,3,6,7));
-        heap.bubbleDown(0);
-        return heap.storage.equals(new ArrayList<>(Arrays.asList(10,8,9,5,2,3,6,7)));
-      }
-    });
+    assertTest(testCount, "should be able to \'bubble down\' an element if its maxheap condition is not fulfilled",
+        new Test() {
+          public boolean execute() {
+            Heap heap = new Heap("max");
+            heap.storage = new ArrayList<Integer>(Arrays.asList(2, 10, 9, 5, 8, 3, 6, 7));
+            heap.bubbleDown(0);
+            return heap.storage.equals(new ArrayList<>(Arrays.asList(10, 8, 9, 5, 2, 3, 6, 7)));
+          }
+        });
 
     assertTest(testCount, "should not perform bubbling down if minheap conditions are fulfilled", new Test() {
       public boolean execute() {
         Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6));
         heap.bubbleDown(0);
-        return heap.storage.equals(new ArrayList<>(Arrays.asList(1,2,7,4,9,10,8,6)));
+        return heap.storage.equals(new ArrayList<>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6)));
       }
     });
 
     assertTest(testCount, "should not perform bubbling down if maxheap conditions are fulfilled", new Test() {
       public boolean execute() {
         Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7));
         heap.bubbleDown(0);
-        return heap.storage.equals(new ArrayList<>(Arrays.asList(10,9,5,8,3,6,2,7)));
+        return heap.storage.equals(new ArrayList<>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7)));
       }
     });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("Heap remove method");
@@ -664,61 +684,59 @@ class Main {
     assertTest(testCount, "is able to remove specified value from minheap", new Test() {
       public boolean execute() {
         Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6));
         boolean removed = heap.remove(10);
-        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(1,2,6,4,9,7,8)));
+        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(1, 2, 6, 4, 9, 7, 8)));
       }
     });
 
     assertTest(testCount, "is able to remove specified value from maxheap", new Test() {
       public boolean execute() {
         Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7));
         boolean removed = heap.remove(6);
-        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(10,9,7,8,3,5,2)));
+        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(10, 9, 7, 8, 3, 5, 2)));
       }
     });
 
     assertTest(testCount, "is able to remove last value from minheap", new Test() {
       public boolean execute() {
         Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6));
         boolean removed = heap.remove(6);
-        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(1,2,7,4,9,10,8)));
+        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(1, 2, 7, 4, 9, 10, 8)));
       }
     });
 
     assertTest(testCount, "is able to remove last value from maxheap", new Test() {
       public boolean execute() {
         Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7));
         boolean removed = heap.remove(7);
-        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(10,9,5,8,3,6,2)));
+        return removed && heap.storage.equals(new ArrayList<>(Arrays.asList(10, 9, 5, 8, 3, 6, 2)));
       }
     });
 
     assertTest(testCount, "does not remove anything from minheap if value does not exist", new Test() {
       public boolean execute() {
         Heap heap = new Heap("min");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(1,2,7,4,9,10,8,6));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6));
         heap.remove(3);
-        return heap.storage.equals(new ArrayList<>(Arrays.asList(1,2,7,4,9,10,8,6)));
+        return heap.storage.equals(new ArrayList<>(Arrays.asList(1, 2, 7, 4, 9, 10, 8, 6)));
       }
     });
 
     assertTest(testCount, "does not remove anything from maxheap if value does not exist", new Test() {
       public boolean execute() {
         Heap heap = new Heap("max");
-        heap.storage = new ArrayList<Integer>(Arrays.asList(10,9,5,8,3,6,2,7));
+        heap.storage = new ArrayList<Integer>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7));
         heap.remove(4);
-        return heap.storage.equals(new ArrayList<>(Arrays.asList(10,9,5,8,3,6,2,7)));
+        return heap.storage.equals(new ArrayList<>(Arrays.asList(10, 9, 5, 8, 3, 6, 2, 7)));
       }
     });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
-
 
   }
 
@@ -732,7 +750,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
