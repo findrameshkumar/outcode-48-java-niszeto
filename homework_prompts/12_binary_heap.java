@@ -87,14 +87,10 @@ class Heap {
   // Time Complexity: 1
   // Auxiliary Space Complexity: 1
   public boolean compare(int a, int b) {
-    System.out.println("Type of heap : " + this.type);
-    System.out.println("A : " + a);
-    System.out.println("B : " + b);
-
     if (this.type.equals("min")) {
-      return a < b;
+      return this.storage.get(a) < this.storage.get(b);
     } else if (this.type.equals("max")) {
-      return a > b;
+      return this.storage.get(a) > this.storage.get(b);
     }
 
     return false;
@@ -120,20 +116,40 @@ class Heap {
     return this.storage.size();
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: 1
+  // Auxiliary Space Complexity: 1
   public void insert(int value) {
-    // YOUR WORK HERE
+    this.storage.add(value);
+    this.bubbleUp(this.size() - 1);
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: log n
+  // Auxiliary Space Complexity: 1
   public void bubbleUp(int index) {
     int parentIndex = getParentIndex(index);
+    int childIndex = index;
+
+    if (this.type.equals("min")) {
+      while (childIndex > 0 && this.storage.get(childIndex) < this.storage.get(parentIndex)) {
+        this.swap(parentIndex, childIndex);
+        childIndex = parentIndex;
+        parentIndex = this.getParentIndex(childIndex);
+      }
+    } else {
+      while (childIndex > 0 && this.storage.get(childIndex) > this.storage.get(parentIndex)) {
+        this.swap(parentIndex, childIndex);
+        childIndex = parentIndex;
+        parentIndex = this.getParentIndex(childIndex);
+      }
+    }
   }
 
   private int getParentIndex(int childIndex) {
-    return (childIndex - 1) / 2;
+    if (childIndex % 2 == 0) {
+      return (childIndex - 2) / 2;
+    } else {
+      return (childIndex - 1) / 2;
+    }
   }
 
   private int getLeftChildIndex(int parentIndex) {
