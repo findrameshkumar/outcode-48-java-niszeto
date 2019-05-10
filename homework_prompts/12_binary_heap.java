@@ -152,31 +152,67 @@ class Heap {
     }
   }
 
-  private int getLeftChildIndex(int parentIndex) {
-    return (2 * parentIndex) + 1;
-  }
+  private int getChildIndex(int parentIndex) {
+    int leftChildIndex = (2 * parentIndex) + 1;
+    int rightChildIndex = (2 * parentIndex) + 2;
 
-  private int getRightChildIndex(int parentIndex) {
-    return (2 * parentIndex) + 2;
+    if (leftChildIndex >= this.size()) {
+      return leftChildIndex;
+    } else if (rightChildIndex >= this.size()) {
+      return leftChildIndex;
+    } else if (this.storage.get(leftChildIndex) < this.storage.get(rightChildIndex) && this.type.equals("min")) {
+      return leftChildIndex;
+    } else if (this.storage.get(leftChildIndex) >= this.storage.get(rightChildIndex) && this.type.equals("min")) {
+      return rightChildIndex;
+    } else if (this.storage.get(leftChildIndex) > this.storage.get(rightChildIndex) && this.type.equals("max")) {
+      return leftChildIndex;
+    } else {
+      return rightChildIndex;
+    }
   }
 
   // Time Complexity:
   // Auxiliary Space Complexity:
   public int removePeak() {
-    // YOUR WORK HERE
-    return -1;
+    this.swap(0, this.size() - 1);
+    int result = this.storage.remove(this.size() - 1);
+    this.bubbleDown(0);
+    return result;
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: log n
+  // Auxiliary Space Complexity: 1
   public void bubbleDown(int index) {
-    // YOUR WORK HERE
+    int parentIndex = index;
+    int childIndex = this.getChildIndex(parentIndex);
+
+    if (this.type.equals("min")) {
+      while (childIndex < this.size() && this.storage.get(parentIndex) > this.storage.get(childIndex)) {
+        this.swap(parentIndex, childIndex);
+        parentIndex = childIndex;
+        childIndex = getChildIndex(parentIndex);
+      }
+    } else {
+      while (childIndex < this.size() && this.storage.get(parentIndex) < this.storage.get(childIndex)) {
+        this.swap(parentIndex, childIndex);
+        parentIndex = childIndex;
+        childIndex = getChildIndex(parentIndex);
+      }
+    }
   }
 
-  // Time Complexity:
-  // Auxiliary Space Complexity:
+  // Time Complexity: n
+  // Auxiliary Space Complexity: 1
   public boolean remove(int value) {
-    // YOUR WORK HERE
+    for (int index = 0; index < this.size(); index++) {
+      if (this.storage.get(index) == value) {
+        this.swap(index, this.size() - 1);
+        this.storage.remove(this.size() - 1);
+        this.bubbleUp(index);
+        this.bubbleDown(index);
+        return true;
+      }
+    }
     return false;
   }
 }
