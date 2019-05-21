@@ -79,16 +79,22 @@ class Graph {
   // Time Complexity: 1
   // Auxiliary Space Complexity: 1
   public boolean addVertex(Integer id) {
-    if (this.storage.containsKey(id)) {
-      return false;
+    if (!this.storage.containsKey(id)) {
+      this.storage.put(id, new ArrayList<Integer>());
+      return true;
     }
 
-    this.storage.put(id, new ArrayList<Integer>());
-    return true;
+    return false;
   }
 
   public boolean removeVertex(Integer id) {
     if (this.storage.containsKey(id)) {
+      for (List<Integer> edges : this.storage.values()) {
+        int edgeIndex = edges.indexOf(id);
+        if (edgeIndex >= 0) {
+          edges.remove(edgeIndex);
+        }
+      }
       this.storage.remove(id);
       return true;
     }
@@ -100,9 +106,15 @@ class Graph {
   // Auxiliary Space Complexity: 1
   public boolean addEdge(Integer id1, Integer id2) {
     if (this.storage.containsKey(id1) && this.storage.containsKey(id2)) {
-      List<Integer> firstVertexList = this.storage.get(id1);
+      if (this.storage.get(id1).indexOf(id2) >= 0) {
+        return false;
+      }
 
-      return firstVertexList.add(id2);
+      List<Integer> firstVertextList = this.storage.get(id1);
+
+      firstVertextList.add(id2);
+
+      return true;
     }
 
     return false;
@@ -112,9 +124,11 @@ class Graph {
   // Auxiliary Space Complexity: 1
   public boolean removeEdge(Integer id1, Integer id2) {
     if (this.storage.containsKey(id1) && this.storage.containsKey(id2)) {
-      List<Integer> firstVertexList = this.storage.get(id1);
-
-      return firstVertexList.remove(id2);
+      int edgeIndex = this.storage.get(id1).indexOf(id2);
+      if (edgeIndex >= 0) {
+        this.storage.get(id1).remove(edgeIndex);
+        return true;
+      }
     }
 
     return false;
@@ -127,9 +141,9 @@ class Graph {
   }
 
   // Time Complexity: 1
-  // Auxiliary Space Complexity: 1
+  // Auxiliary Space Complexity: E
   public List<Integer> neighbors(Integer id) {
-    return this.storage.get(id);
+    return this.storage.containsKey(id) ? new ArrayList<>(this.storage.get(id)) : null;
   }
 
 }
