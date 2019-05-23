@@ -94,8 +94,8 @@ class Problems {
         start++;
       }
     }
-
-    return result[1] < str.length() ? str.substring(result[0], result[1] + 1) : "";
+    System.out.println(result[1]);
+    return result[1] == Integer.MAX_VALUE ? "" : str.substring(result[0], result[1] + 1);
   }
 
   /*
