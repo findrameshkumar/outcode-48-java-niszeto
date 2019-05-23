@@ -10,268 +10,287 @@ class Problems {
   /*
    * Minimum Window Substring (Sliding Window)
    *
-   * Given a string, and a set of characters
-   * return the substring representing the SMALLEST
-   * window containing those characters.
+   * Given a string, and a set of characters return the substring representing the
+   * SMALLEST window containing those characters.
    *
    * The characters needn't appear in the order in which they are given.
    *
    * If not all the characters are present in the string, return the empty string.
    *
    *
-   * Input: str   (String)
-   *        chars (String)
+   * Input: str (String) chars (String)
    *
    * Output: {String}
    *
    *
-   * Example:
-   *  Input: "ADOBECODEBANC", "ABC"
-   *  Output: "BANC"
+   * Example: Input: "ADOBECODEBANC", "ABC" Output: "BANC"
    *
-   *  Input: "HELLO WORLD", "FOO"
-   *  Output: ""
+   * Input: "HELLO WORLD", "FOO" Output: ""
    *
    *
-   * Explanation:
-   *   Though there are many substrings containing all the characters
-   *   "BANC" is the shortest.
+   * Explanation: Though there are many substrings containing all the characters
+   * "BANC" is the shortest.
    *
    * Assume that there won't be repeated characters in the second string input.
    *
-   * Ignore capitalization.
-   * (though taking it into account doesn't change the solution much)
+   * Ignore capitalization. (though taking it into account doesn't change the
+   * solution much)
    *
-   * But as extra credit, how would you handle repeats?
-   * Meaning if you were given two "A" characters, a valid window MUST
-   * contain two "A"s
+   * But as extra credit, how would you handle repeats? Meaning if you were given
+   * two "A" characters, a valid window MUST contain two "A"s
    *
    *
    */
 
   // Time Complexity:
   // Auxiliary Space Complexity:
-   public static String minimumWindowSubstring(String str, String targets) {
-     //YOUR WORK HERE
-     return "";
-   }
+  public static String minimumWindowSubstring(String str, String targets) {
+    if (str.length() < targets.length() || targets.length() == 0 || str.length() == 0) {
+      return "";
+    }
 
+    int start = 0;
+    int[] result = new int[] { 0, Integer.MAX_VALUE };
+    int charactersRemaining = targets.length();
+    HashMap<Character, Integer> targetCharacters = new HashMap<>();
 
+    for (int index = 0; index < targets.length(); index++) {
+      char currentCharacter = targets.charAt(index);
+      if (targetCharacters.containsKey(currentCharacter)) {
+        int frequency = targetCharacters.get(currentCharacter);
+        targetCharacters.put(currentCharacter, frequency + 1);
+      } else {
+        targetCharacters.put(currentCharacter, 0);
+      }
+    }
+
+    for (int index = 0; index < str.length(); index++) {
+      char currentCharacter = str.charAt(index);
+      if (targetCharacters.containsKey(currentCharacter)) {
+        if (targetCharacters.get(currentCharacter) == 0) {
+          charactersRemaining--;
+        }
+
+        int currentFrequency = targetCharacters.get(currentCharacter);
+
+        targetCharacters.put(currentCharacter, currentFrequency + 1);
+      }
+
+      while (charactersRemaining == 0) {
+        if ((index - start) < (result[1] - result[0])) {
+          result[0] = start;
+          result[1] = index;
+        }
+
+        currentCharacter = str.charAt(start);
+        if (targetCharacters.containsKey(currentCharacter)) {
+          int frequency = targetCharacters.get(currentCharacter) - 1;
+          targetCharacters.put(currentCharacter, frequency);
+
+          if (frequency == 0) {
+            charactersRemaining++;
+          }
+        }
+        start++;
+      }
+    }
+
+    return result[1] < str.length() ? str.substring(result[0], result[1] + 1) : "";
+  }
 
   /*
-  *  Problem: Dungeon Escape
-  *
-  *          Given a matrix of integers that represents rooms in a dungeon,
-  *          determine the minimum amount of health a adventurer must start with
-  *          in order to escape the dungeon
-  *
-  *          The adventurer starts at the upper left corner of the matrix, and
-  *          the exit is located at the bottom right corner.
-  *
-  *          The adventurer must leave the dungeon before sundown, so in the
-  *          interest of time, this brave adventurer decides to only travel
-  *          downwards and to the right
-  *
-  *          Negative integers represent rooms with monsters, so the adventurer
-  *          would lose health when going though these rooms. 0s represent empty
-  *          rooms, and positive integers represent rooms that contain health
-  *          pots that will increase the adventurer's health
-  *
-  *
-  *  Input:  dungeon {Integer[][]}
-  *  Output: {Integer}
-  *
-  *
-  * Example:
-  *  Input:  [[ -2, -5, 10],
-  *           [ -3,-10, 30],
-  *           [  3,  1, -5]]
-  *
-  *  Output: 7 (The steps to do this would be down, down, right, right)
-  *
-  *
-  *    Note: The initial health should be represented by a positve integers
-  *          If the health ever drops to zero or a negative integer, the
-  *          adventurer dies.
-  *          Every room will contain an integer. It will either be empty (0),
-  *          contain a monster (negative), or contain a health pot (positive).
-  *          You could create every single possible path, but there is of course
-  *          a dynamic programming approach to not go with this route.
-  *
-  */
-
-
+   * Problem: Dungeon Escape
+   *
+   * Given a matrix of integers that represents rooms in a dungeon, determine the
+   * minimum amount of health a adventurer must start with in order to escape the
+   * dungeon
+   *
+   * The adventurer starts at the upper left corner of the matrix, and the exit is
+   * located at the bottom right corner.
+   *
+   * The adventurer must leave the dungeon before sundown, so in the interest of
+   * time, this brave adventurer decides to only travel downwards and to the right
+   *
+   * Negative integers represent rooms with monsters, so the adventurer would lose
+   * health when going though these rooms. 0s represent empty rooms, and positive
+   * integers represent rooms that contain health pots that will increase the
+   * adventurer's health
+   *
+   *
+   * Input: dungeon {Integer[][]} Output: {Integer}
+   *
+   *
+   * Example: Input: [[ -2, -5, 10], [ -3,-10, 30], [ 3, 1, -5]]
+   *
+   * Output: 7 (The steps to do this would be down, down, right, right)
+   *
+   *
+   * Note: The initial health should be represented by a positve integers If the
+   * health ever drops to zero or a negative integer, the adventurer dies. Every
+   * room will contain an integer. It will either be empty (0), contain a monster
+   * (negative), or contain a health pot (positive). You could create every single
+   * possible path, but there is of course a dynamic programming approach to not
+   * go with this route.
+   *
+   */
 
   // Time Complexity:
   // Auxiliary Space Complexity:
 
   public static int escape(int[][] dungeon) {
-    //YOUR WORK HERE
+    // YOUR WORK HERE
     return -1;
   }
 
 }
 
+////////////////////////////////////////////////////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
+////////////////////////////////////////////////////////////
 
+// use the Main class to run the test cases
+class Main {
+  private int[] testCount;
 
+  // an interface to perform tests
+  public interface Test {
+    public boolean execute();
+  }
 
+  public static void main(String[] args) {
 
- ////////////////////////////////////////////////////////////
- ///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
- ////////////////////////////////////////////////////////////
+    int[] testCount = { 0, 0 };
+    System.out.println("Minimum Window Substring Tests");
 
- // use the Main class to run the test cases
- class Main {
-   private int[] testCount;
+    assertTest(testCount, "should work on first example case", new Test() {
+      public boolean execute() {
+        return Problems.minimumWindowSubstring("ADOBECODEBANC", "ABC").equals("BANC");
+      }
+    });
 
-   // an interface to perform tests
-   public interface Test {
-     public boolean execute();
-   }
+    assertTest(testCount, "should work on second example case", new Test() {
+      public boolean execute() {
+        return Problems.minimumWindowSubstring("HELLO WORLD", "FOO").equals("");
+      }
+    });
 
-   public static void main(String[] args) {
+    // print the result of tests passed for a module
+    System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-     int[] testCount = {0, 0};
-     System.out.println("Minimum Window Substring Tests");
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    testCount[0] = 0;
+    testCount[1] = 0;
 
-     assertTest(testCount, "should work on first example case", new Test() {
-       public boolean execute() {
-         return Problems.minimumWindowSubstring("ADOBECODEBANC", "ABC").equals("BANC");
-       }
-     });
+    System.out.println("Dungeon Escape Tests");
 
-     assertTest(testCount, "should work on second example case", new Test() {
-       public boolean execute() {
-         return Problems.minimumWindowSubstring("HELLO WORLD", "FOO").equals("");
-       }
-     });
+    // tests are in the form as shown
+    assertTest(testCount, "should work for first example case", new Test() {
+      public boolean execute() {
+        int[][] example = { { -2, -5, 10 }, { -3, -10, 30 }, { 3, 1, -5 } };
+        int test = Problems.escape(example);
+        return test == 7;
+      }
+    });
 
-     // print the result of tests passed for a module
-     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
+    assertTest(testCount, "should work for dungeon filled solely with health potions", new Test() {
+      public boolean execute() {
+        int[][] example = { { 5, 1, 10 }, { 10, 312, 30 }, { 3, 1, 7 } };
+        int test = Problems.escape(example);
+        return test == 1;
+      }
+    });
 
+    assertTest(testCount, "should work for an empty dungeon", new Test() {
+      public boolean execute() {
+        int[][] example = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+        int test = Problems.escape(example);
+        return test == 1;
+      }
+    });
 
-     // instantiate the testing of each module by resetting count and printing title of module
-     testCount[0] = 0;
-     testCount[1] = 0;
+    assertTest(testCount, "should work for a dungeon filled only with monsters", new Test() {
+      public boolean execute() {
+        int[][] example = { { -3, -6, -13 }, { -12, -1, -7 }, { -5, -11, -2 } };
+        int test = Problems.escape(example);
+        return test == 20;
+      }
+    });
 
-     System.out.println("Dungeon Escape Tests");
+    assertTest(testCount, "should work for a two-room dungeon starting with a monster", new Test() {
+      public boolean execute() {
+        int[][] example = { { -2, 5 } };
+        int test = Problems.escape(example);
+        return test == 3;
+      }
+    });
 
-     // tests are in the form as shown
-     assertTest(testCount, "should work for first example case", new Test() {
-       public boolean execute() {
-         int[][] example = {{ -2, -5, 10},
-                            { -3,-10, 30},
-                            {  3,  1, -5}};
-         int test = Problems.escape(example);
-         return test == 7;
-       }
-     });
+    assertTest(testCount, "should work for a two-room dungeon starting with a strong monster", new Test() {
+      public boolean execute() {
+        int[][] example = { { -13, 5 } };
+        int test = Problems.escape(example);
+        return test == 14;
+      }
+    });
 
-     assertTest(testCount, "should work for dungeon filled solely with health potions", new Test() {
-       public boolean execute() {
-         int[][] example = {{  5,  1, 10},
-                            { 10,312, 30},
-                            {  3,  1,  7}};
-         int test = Problems.escape(example);
-         return test == 1;
-       }
-     });
+    assertTest(testCount, "should work for a two-room dungeon starting with a health pot", new Test() {
+      public boolean execute() {
+        int[][] example = { { 5, -2 } };
+        int test = Problems.escape(example);
+        return test == 1;
+      }
+    });
 
-     assertTest(testCount, "should work for an empty dungeon", new Test() {
-       public boolean execute() {
-         int[][] example = {{  0,  0,  0},
-                            {  0,  0,  0},
-                            {  0,  0,  0}};
-         int test = Problems.escape(example);
-         return test == 1;
-       }
-     });
+    assertTest(testCount, "should work for a two-room dungeon ending in a strong monster", new Test() {
+      public boolean execute() {
+        int[][] example = { { 5, -8 } };
+        int test = Problems.escape(example);
+        return test == 4;
+      }
+    });
 
-     assertTest(testCount, "should work for a dungeon filled only with monsters", new Test() {
-       public boolean execute() {
-         int[][] example = {{ -3, -6,-13},
-                            {-12, -1, -7},
-                            { -5,-11, -2}};
-         int test = Problems.escape(example);
-         return test == 20;
-       }
-     });
+    assertTest(testCount, "should work a dungeon with only a monster", new Test() {
+      public boolean execute() {
+        int[][] example = { { -14 } };
+        int test = Problems.escape(example);
+        return test == 15;
+      }
+    });
 
-     assertTest(testCount, "should work for a two-room dungeon starting with a monster", new Test() {
-       public boolean execute() {
-         int[][] example = {{-2, 5}};
-         int test = Problems.escape(example);
-         return test == 3;
-       }
-     });
+    assertTest(testCount, "should work a dungeon with only a health pot", new Test() {
+      public boolean execute() {
+        int[][] example = { { 6 } };
+        int test = Problems.escape(example);
+        return test == 1;
+      }
+    });
 
-     assertTest(testCount, "should work for a two-room dungeon starting with a strong monster", new Test() {
-       public boolean execute() {
-         int[][] example = {{-13, 5}};
-         int test = Problems.escape(example);
-         return test == 14;
-       }
-     });
+    assertTest(testCount, "should work a dungeon with a single empty room", new Test() {
+      public boolean execute() {
+        int[][] example = { { 0 } };
+        int test = Problems.escape(example);
+        return test == 1;
+      }
+    });
 
-     assertTest(testCount, "should work for a two-room dungeon starting with a health pot", new Test() {
-       public boolean execute() {
-         int[][] example = {{5, -2}};
-         int test = Problems.escape(example);
-         return test == 1;
-       }
-     });
+    // print the result of tests passed for a module
+    System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-     assertTest(testCount, "should work for a two-room dungeon ending in a strong monster", new Test() {
-       public boolean execute() {
-         int[][] example = {{5, -8}};
-         int test = Problems.escape(example);
-         return test == 4;
-       }
-     });
+  }
 
-     assertTest(testCount, "should work a dungeon with only a monster", new Test() {
-       public boolean execute() {
-         int[][] example = {{-14}};
-         int test = Problems.escape(example);
-         return test == 15;
-       }
-     });
+  // do not edit below, this is to wrap the test and check for exceptions
+  private static void assertTest(int[] count, String name, Test test) {
+    String pass = "false";
+    count[1]++;
 
-     assertTest(testCount, "should work a dungeon with only a health pot", new Test() {
-       public boolean execute() {
-         int[][] example = {{6}};
-         int test = Problems.escape(example);
-         return test == 1;
-       }
-     });
-
-     assertTest(testCount, "should work a dungeon with a single empty room", new Test() {
-       public boolean execute() {
-         int[][] example = {{0}};
-         int test = Problems.escape(example);
-         return test == 1;
-       }
-     });
-
-     // print the result of tests passed for a module
-     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
-
-   }
-
-
-
-   // do not edit below, this is to wrap the test and check for exceptions
-   private static void assertTest(int[] count, String name, Test test) {
-     String pass = "false";
-     count[1]++;
-
-     try {
-       if (test.execute()) {
-         pass = " true";
-         count[0]++;
-       }
-     } catch(Exception e) {}
-     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
-     System.out.println(result);
-   }
- }
+    try {
+      if (test.execute()) {
+        pass = " true";
+        count[0]++;
+      }
+    } catch (Exception e) {
+    }
+    String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
+    System.out.println(result);
+  }
+}
