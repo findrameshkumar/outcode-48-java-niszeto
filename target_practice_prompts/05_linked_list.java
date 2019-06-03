@@ -1,3 +1,4 @@
+
 /**
  *  Target Practice 06 - Linked List
  *
@@ -7,123 +8,123 @@
 import java.io.*;
 import java.util.*;
 
-
 // DO NOT EDIT
 // ListNode class for a linked list node
 class ListNode {
   public int value;
   public ListNode next;
 
-  public ListNode(int value){
+  public ListNode(int value) {
     this.value = value;
   }
 }
-
 
 class Problems {
 
   // DO NOT EDIT
   // Generate a linked list from an array
   public static ListNode generateList(int[] arr) {
-    if(arr.length == 0){
+    if (arr.length == 0) {
       return null;
     }
     ListNode head = new ListNode(arr[0]);
     ListNode current = head;
-    for(int i = 1; i < arr.length; i++){
+    for (int i = 1; i < arr.length; i++) {
       current.next = new ListNode(arr[i]);
       current = current.next;
     }
     return head;
   }
 
-
-/**
- * 1a. Create a method which prints the value of each node until the tail
- *
- * Input: node {ListNode}
- * Output: void
- *
- * Example: (1) --> (5) --> (7) --> (10)
- *          Head                    Tail
- *          1
- *          5
- *          7
- *          10
- */
+  /**
+   * 1a. Create a method which prints the value of each node until the tail
+   *
+   * Input: node {ListNode} Output: void
+   *
+   * Example: (1) --> (5) --> (7) --> (10) Head Tail 1 5 7 10
+   */
 
   // Time Complexity:
   // Auxiliary Space Complexity:
   public static void printForward(ListNode node) {
-    // YOUR WORK HERE
+    if (node == null) {
+      return;
+    }
+
+    ListNode currentNode = node;
+    while (currentNode != null) {
+      System.out.println(currentNode.value);
+      currentNode = currentNode.next;
+    }
   }
 
-
-/**
- * 1b. Given a node, print the value of each node backwards from the tail to the
- * input node using recursion.
- *
- * Input: node {ListNode}
- * Output: void
- *
- * Example: (1) --> (5) --> (7) --> (10)
- *          Head                    Tail
- *          10
- *          7
- *          5
- *          1
- */
+  /**
+   * 1b. Given a node, print the value of each node backwards from the tail to the
+   * input node using recursion.
+   *
+   * Input: node {ListNode} Output: void
+   *
+   * Example: (1) --> (5) --> (7) --> (10) Head Tail 10 7 5 1
+   */
 
   // Time Complexity:
   // Auxiliary Space Complexity:
   public static void printBackward(ListNode node) {
-    // YOUR WORK HERE
+    if (node == null) {
+      return;
+    }
+
+    printBackward(node.next);
+    System.out.println(node.value);
   }
 
-
-/**
- * 1c. Create a public method on the singly LinkedList class that reverses the
- *     order of the nodes in the linked list
- *
- * Input: node {ListNode}
- * Output: {ListNode}
- *
- * Example: (1) --> (5) --> (7) --> (10) .reverse()
- *          Head                    Tail
- *
- *          (10) --> (7) --> (5) --> (1)
- *          Head                    Tail
- *
- * What is the time and auxiliary space complexity of your solution?
- */
+  /**
+   * 1c. Create a public method on the singly LinkedList class that reverses the
+   * order of the nodes in the linked list
+   *
+   * Input: node {ListNode} Output: {ListNode}
+   *
+   * Example: (1) --> (5) --> (7) --> (10) .reverse() Head Tail
+   *
+   * (10) --> (7) --> (5) --> (1) Head Tail
+   *
+   * What is the time and auxiliary space complexity of your solution?
+   */
 
   // Time Complexity:
   // Auxiliary Space Complexity:
   public static ListNode reverse(ListNode node) {
-    // YOUR WORK HERE
-    return null;
+    if (node == null) {
+      return node;
+    }
+
+    ListNode currentNode = node;
+    ListNode previousNode = null;
+
+    while (currentNode != null) {
+      ListNode nextNode = currentNode.next;
+      currentNode.next = previousNode;
+      previousNode = currentNode;
+      currentNode = nextNode;
+    }
+
+    return previousNode;
   }
 
-
-/**
- * 1d. Create a method which swaps the first occurance of the locations of two
- *     nodes in the linked list.
- *
- * Input: head {ListNode},
- * Input: a {Integer}
- * Input: b {Integer}
- * Output: {ListNode}
- *
- * Example:
- * ListNode head = Problems.generateList({1, 5, 7, 10});
- * head = swap(head, 5, 10);
- *
- *          (1) --> (5) --> (7) --> (10)
- *          Head
- *
- *          (1) --> (10) --> (7) --> (5)
- *          Head
- */
+  /**
+   * 1d. Create a method which swaps the first occurance of the locations of two
+   * nodes in the linked list.
+   *
+   * Input: head {ListNode}, Input: a {Integer} Input: b {Integer} Output:
+   * {ListNode}
+   *
+   * Example: ListNode head = Problems.generateList({1, 5, 7, 10}); head =
+   * swap(head, 5, 10);
+   *
+   * (1) --> (5) --> (7) --> (10) Head
+   *
+   * (1) --> (10) --> (7) --> (5) Head
+   */
 
   // Time Complexity:
   // Auxiliary Space Complexity:
@@ -132,23 +133,21 @@ class Problems {
     return null;
   }
 
-
- /**
-  *  Extra Credit 1:
-  *
-  *  Given an input of a ListNode, return true if the ListNode is in a circular
-  *  linked list, and false if the linked list that terminates.
- */
-  public static boolean isCircular(ListNode node){
+  /**
+   * Extra Credit 1:
+   *
+   * Given an input of a ListNode, return true if the ListNode is in a circular
+   * linked list, and false if the linked list that terminates.
+   */
+  public static boolean isCircular(ListNode node) {
     // YOUR WORK HERE
     return true;
   }
 
 }
 
-
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use main class to run the test cases
@@ -162,26 +161,25 @@ class Main {
 
   public static void main(String[] args) {
 
-    // instantiate the testing of each module by resetting count and printing title of module
-    int[] testCount = {0, 0};
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    int[] testCount = { 0, 0 };
     System.out.println("linked list instantiation tests");
 
     // tests are in the form as shown
     assertTest(testCount, "able to create a linked list instance", new Test() {
       public boolean execute() {
-        int[] arr = {1, 5, 7, 10};
+        int[] arr = { 1, 5, 7, 10 };
         ListNode test = Problems.generateList(arr);
-        return test instanceof ListNode && test.value == 1 &&
-          test.next.next.next.value == 10;
+        return test instanceof ListNode && test.value == 1 && test.next.next.next.value == 10;
       }
     });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("printForward tests");
@@ -189,7 +187,7 @@ class Main {
     assertTest(testCount, "should be able to print forward 1 --> 5 --> 7 --> 10", new Test() {
       public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
+        int[] arr = { 1, 5, 7, 10 };
         ListNode test = Problems.generateList(arr);
 
         // Create a stream to hold the output
@@ -215,7 +213,7 @@ class Main {
     assertTest(testCount, "should be able to print forward with single element", new Test() {
       public boolean execute() {
 
-        int[] arr = {1};
+        int[] arr = { 1 };
         ListNode test = Problems.generateList(arr);
 
         // Create a stream to hold the output
@@ -266,9 +264,8 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("printBackward tests");
@@ -276,7 +273,7 @@ class Main {
     assertTest(testCount, "should be able to print backward elements of linked list 1 --> 5 --> 7 --> 10", new Test() {
       public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
+        int[] arr = { 1, 5, 7, 10 };
         ListNode test = Problems.generateList(arr);
 
         // Create a stream to hold the output
@@ -302,7 +299,7 @@ class Main {
     assertTest(testCount, "should be able to print backward with single element linked list 1", new Test() {
       public boolean execute() {
 
-        int[] arr = {1};
+        int[] arr = { 1 };
         ListNode test = Problems.generateList(arr);
 
         // Create a stream to hold the output
@@ -354,8 +351,8 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("reverse tests");
@@ -363,14 +360,11 @@ class Main {
     assertTest(testCount, "should be able to reverse 1 --> 5 --> 7 --> 10 to be 10 --> 7 --> 5 --> 1", new Test() {
       public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
+        int[] arr = { 1, 5, 7, 10 };
         ListNode test = Problems.generateList(arr);
         test = Problems.reverse(test);
 
-        return test.value == 10 &&
-          test.next.value == 7 &&
-          test.next.next.value == 5 &&
-          test.next.next.next.value == 1;
+        return test.value == 10 && test.next.value == 7 && test.next.next.value == 5 && test.next.next.next.value == 1;
 
       }
     });
@@ -378,7 +372,7 @@ class Main {
     assertTest(testCount, "should be able to handle single element linked lists", new Test() {
       public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
+        int[] arr = { 1, 5, 7, 10 };
         ListNode test = Problems.generateList(arr);
         test = Problems.reverse(test);
 
@@ -390,75 +384,75 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("swap tests");
 
-    assertTest(testCount, "should be able to swap 1 and 5 to change 1 --> 5 --> 7 --> 10 linked list to look like 5 --> 1 --> 7 --> 10", new Test() {
-      public boolean execute() {
+    assertTest(testCount,
+        "should be able to swap 1 and 5 to change 1 --> 5 --> 7 --> 10 linked list to look like 5 --> 1 --> 7 --> 10",
+        new Test() {
+          public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
-        ListNode test = Problems.generateList(arr);
-        test = Problems.swap(test, 1, 5);
+            int[] arr = { 1, 5, 7, 10 };
+            ListNode test = Problems.generateList(arr);
+            test = Problems.swap(test, 1, 5);
 
-        return test.value == 5 &&
-          test.next.value == 1 &&
-          test.next.next.value == 7 &&
-          test.next.next.next.value == 10;
+            return test.value == 5 && test.next.value == 1 && test.next.next.value == 7
+                && test.next.next.next.value == 10;
 
-      }
-    });
+          }
+        });
 
-    assertTest(testCount, "should be able to swap 1 and 7 to change 1 --> 5 --> 7 --> 10 linked list to look like 7 --> 5 --> 1 --> 10", new Test() {
-      public boolean execute() {
+    assertTest(testCount,
+        "should be able to swap 1 and 7 to change 1 --> 5 --> 7 --> 10 linked list to look like 7 --> 5 --> 1 --> 10",
+        new Test() {
+          public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
-        ListNode test = Problems.generateList(arr);
-        test = Problems.swap(test, 1, 7);
+            int[] arr = { 1, 5, 7, 10 };
+            ListNode test = Problems.generateList(arr);
+            test = Problems.swap(test, 1, 7);
 
-        return test.value == 7 &&
-          test.next.value == 5 &&
-          test.next.next.value == 1 &&
-          test.next.next.next.value == 10;
+            return test.value == 7 && test.next.value == 5 && test.next.next.value == 1
+                && test.next.next.next.value == 10;
 
-      }
-    });
+          }
+        });
 
-    assertTest(testCount, "should be able to swap 1 and 10 to change 1 --> 5 --> 7 --> 10 linked list to look like 10 --> 5 --> 7 --> 1", new Test() {
-      public boolean execute() {
+    assertTest(testCount,
+        "should be able to swap 1 and 10 to change 1 --> 5 --> 7 --> 10 linked list to look like 10 --> 5 --> 7 --> 1",
+        new Test() {
+          public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
-        ListNode test = Problems.generateList(arr);
-        test = Problems.swap(test, 1, 10);
+            int[] arr = { 1, 5, 7, 10 };
+            ListNode test = Problems.generateList(arr);
+            test = Problems.swap(test, 1, 10);
 
-        return test.value == 10 &&
-          test.next.value == 5 &&
-          test.next.next.value == 7 &&
-          test.next.next.next.value == 1;
-      }
-    });
+            return test.value == 10 && test.next.value == 5 && test.next.next.value == 7
+                && test.next.next.next.value == 1;
+          }
+        });
 
-    assertTest(testCount, "should be able to swap 5 and 10 to change 1 --> 5 --> 7 --> 10 linked list to look like 1 --> 10 --> 7 --> 5", new Test() {
-      public boolean execute() {
+    assertTest(testCount,
+        "should be able to swap 5 and 10 to change 1 --> 5 --> 7 --> 10 linked list to look like 1 --> 10 --> 7 --> 5",
+        new Test() {
+          public boolean execute() {
 
-        int[] arr = {1, 5, 7, 10};
-        ListNode test = Problems.generateList(arr);
-        test = Problems.swap(test, 5, 10);
+            int[] arr = { 1, 5, 7, 10 };
+            ListNode test = Problems.generateList(arr);
+            test = Problems.swap(test, 5, 10);
 
-        return test.value == 1 &&
-          test.next.value == 10 &&
-          test.next.next.value == 7 &&
-          test.next.next.next.value == 5;
-      }
-    });
+            return test.value == 1 && test.next.value == 10 && test.next.next.value == 7
+                && test.next.next.next.value == 5;
+          }
+        });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("isCircular tests");
@@ -470,14 +464,14 @@ class Main {
         // setup of node in a circular linkedList
         ListNode work;
 
-        ListNode node = new ListNode((int)(Math.random() * 10000));
+        ListNode node = new ListNode((int) (Math.random() * 10000));
         work = node;
-        int circleSize = 100 + (int)(Math.random() * ((10000 - 100) + 1));
+        int circleSize = 100 + (int) (Math.random() * ((10000 - 100) + 1));
 
-        for (int i = 0; i < circleSize; i++){
-          work.next = new ListNode((int)(Math.random() * 10000));
+        for (int i = 0; i < circleSize; i++) {
+          work.next = new ListNode((int) (Math.random() * 10000));
           work = work.next;
-          if (i == (circleSize - 1)){
+          if (i == (circleSize - 1)) {
             // connects the last node to the original nodeA
             work.next = node;
           }
@@ -492,12 +486,12 @@ class Main {
 
         // setup of a node in a linkedList that terminates
         ListNode work;
-        ListNode node = new ListNode((int)(Math.random() * 10000));
+        ListNode node = new ListNode((int) (Math.random() * 10000));
         work = node;
-        int listSize = 100 + (int)(Math.random() * ((10000 - 100) + 1));
+        int listSize = 100 + (int) (Math.random() * ((10000 - 100) + 1));
 
-        for (int i = 0; i < listSize; i++){
-          work.next = new ListNode((int)(Math.random() * 10000));
+        for (int i = 0; i < listSize; i++) {
+          work.next = new ListNode((int) (Math.random() * 10000));
           work = work.next;
         }
 
@@ -519,7 +513,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
