@@ -56,8 +56,31 @@ class Problems {
   // Time Complexity:
   // Auxiliary Space Complexity:
   public static int BitFlip(int[] arr, int N) {
-    // YOUR WORK HERE
-    return -1;
+    int maxStreak = 0;
+    int currentStreak = 0;
+    int currentStartPosition = 0;
+
+    for (int index = 0; index < arr.length; index++) {
+      if (arr[index] == 0) {
+        if (N > 0) {
+          N--;
+        } else {
+          int numberOfOnesToSubtact = 1;
+          while (arr[index] == 1) {
+            numberOfOnesToSubtact++;
+            currentStartPosition++;
+          }
+          currentStartPosition++;
+          currentStreak -= numberOfOnesToSubtact;
+        }
+      }
+      currentStreak++;
+      if (currentStreak > maxStreak) {
+        maxStreak = currentStreak;
+      }
+    }
+
+    return maxStreak;
   }
 }
 
