@@ -1,3 +1,4 @@
+
 /**
  *  Target Practice 07 - Binary Tree Traversal
  *
@@ -14,7 +15,7 @@ class TreeNode {
   public TreeNode left;
   public TreeNode right;
 
-  public TreeNode(int value){
+  public TreeNode(int value) {
     this.value = value;
   }
 }
@@ -47,160 +48,152 @@ class Problems {
 
   /**
    *
-   * Deserialize operates by building out the tree in a breadth-first
-   * manner. One only needs to build down to the lowest row where there
-   * exists nodes. For example, in this tree,
+   * Deserialize operates by building out the tree in a breadth-first manner. One
+   * only needs to build down to the lowest row where there exists nodes. For
+   * example, in this tree,
    *
-   *          1
-   *            \
-   *              3
-   *   				  /
-   *   				 2
+   * 1 \ 3 / 2
    *
-   * The array that you would pass in to the deserialize function would
-   * be [1,null,3,2,null]. The first null represents the left child of
-   * the 1 node, and the second null represents the right child of the 3 node.
+   * The array that you would pass in to the deserialize function would be
+   * [1,null,3,2,null]. The first null represents the left child of the 1 node,
+   * and the second null represents the right child of the 3 node.
    *
-   *  1. Here, we have built out the following tree using deserialize:
+   * 1. Here, we have built out the following tree using deserialize:
    *
-   *              4
-   *            /   \
-   *          2       5
-   *        /   \       \
-   *      1       3       7
-   *                    /   \
-   *                  6      8
+   * 4 / \ 2 5 / \ \ 1 3 7 / \ 6 8
    */
 
-   // DO NOT EDIT
-  public static int[] arr = {4, 2, 5, 1, 3, -1, 7, -1, -1, -1, -1, 6, 8};
+  // DO NOT EDIT
+  public static int[] arr = { 4, 2, 5, 1, 3, -1, 7, -1, -1, -1, -1, 6, 8 };
 
   public static TreeNode sampleTree = deserialize(arr);
 
-
   /**
-   *  2. Given the example output binary search tree from Problem 1, what would
-   *     the order of values printed be if we used:
+   * 2. Given the example output binary search tree from Problem 1, what would the
+   * order of values printed be if we used:
    *
-   *     a. BREADTH FIRST traversal: {4, 2, 5, 1, 3, 7, 6, 8}
-   *     b. PRE-ORDER DEPTH first traversal: {4, 2, 1, 3, 5, 7, 6, 8}
-   *     c. IN-ORDER DEPTH first traversal: {1, 2, 3, 4, 5, 6, 7, 8}
-   *     d. POST-ORDER DEPTH first traversal: {1, 3, 2, 6, 8, 7, 5, 4}
+   * a. BREADTH FIRST traversal: b. PRE-ORDER DEPTH first traversal: c. IN-ORDER
+   * DEPTH first traversal: d. POST-ORDER DEPTH first traversal:
    */
 
-   /**
-    *  3a. Using a queue and while loop write a function that takes the root of a
-    *      binary tree node and outputs an array of values ordered by BREADTH
-    *      FIRST.
-    *
-    *  Input: node {TreeNode}
-    *  Output: {ArrayList}
-    *
-    *  NOTE: You may use an array or linked list for your queue.
-    *  NOTE: Confirm with your answer from Problem 2a.
-    */
+  /**
+   * 3a. Using a queue and while loop write a function that takes the root of a
+   * binary tree node and outputs an array of values ordered by BREADTH FIRST.
+   *
+   * Input: node {TreeNode} Output: {ArrayList}
+   *
+   * NOTE: You may use an array or linked list for your queue. NOTE: Confirm with
+   * your answer from Problem 2a.
+   */
   public static List bfs(TreeNode node) {
     List<Integer> result = new ArrayList<>();
-    if(node == null) {
-      return result;
-    }
-    Queue<TreeNode> queue = new LinkedList<TreeNode>();
-    queue.add(node);
-    TreeNode current;
-    while (queue.size() > 0) {
-      current = queue.remove();
-      if (current.left != null) {
-        queue.add(current.left);
+
+    if (node != null) {
+      Queue<TreeNode> queue = new LinkedList();
+      queue.add(node);
+      TreeNode currentNode;
+      while (!queue.isEmpty()) {
+        currentNode = queue.remove();
+
+        if (currentNode.left != null) {
+          queue.add(currentNode.left);
+        }
+
+        if (currentNode.right != null) {
+          queue.add(currentNode.right);
+        }
+        result.add(currentNode.value);
       }
-      if (current.right != null) {
-        queue.add(current.right);
-      }
-      result.add(current.value);
+      System.out.println(result.toString());
     }
 
     return result;
   }
-
 
   /**
-   *  3b. Using recursion, write a function that takes in a tree node and outputs
-   *      an array of values ordered by PRE-ORDER DEPTH FIRST traversal.
+   * 3b. Using recursion, write a function that takes in a tree node and outputs
+   * an array of values ordered by PRE-ORDER DEPTH FIRST traversal.
    *
-   *  Input: node {TreeNode}
-   *  Output: {ArrayList}
+   * Input: node {TreeNode} Output: {ArrayList}
    *
-   *      NOTE: Confirm with your answer from problem 2b.
+   * NOTE: Confirm with your answer from problem 2b.
    */
-  public static List dfsPre (TreeNode node) {
+  public static List dfsPre(TreeNode node) {
+    if (node == null) {
+      return new ArrayList();
+    }
     List<Integer> result = new ArrayList<>();
-    dfsPreTraverse(node, result);
+    dfsPreHelper(node, result);
     return result;
   }
 
-  private static void dfsPreTraverse(TreeNode current, List result) {
-
-    if(current == null) {
+  public static void dfsPreHelper(TreeNode node, List<Integer> result) {
+    if (node == null) {
       return;
     }
-    result.add(current.value);
-    dfsPreTraverse(current.left, result);
-    dfsPreTraverse(current.right, result);
+    result.add(node.value);
+    dfsPreHelper(node.left, result);
+    dfsPreHelper(node.right, result);
   }
 
   /**
-   *  3c. Using recursion, write a function that takes in a tree node and outputs
-   *      an array of values ordered by IN-ORDER DEPTH FIRST traversal.
+   * 3c. Using recursion, write a function that takes in a tree node and outputs
+   * an array of values ordered by IN-ORDER DEPTH FIRST traversal.
    *
-   *  Input: node {TreeNode}
-   *  Output: {List}
+   * Input: node {TreeNode} Output: {List}
    *
-   *      NOTE: Confirm with your answer from problem 2b.
+   * NOTE: Confirm with your answer from problem 2b.
    */
   public static List dfsIn(TreeNode node) {
-    List<Integer> result = new ArrayList<>();
     if (node == null) {
-      return result;
+      return new ArrayList();
     }
-    dfsInTraverse(node, result);
+    List<Integer> result = new ArrayList<>();
+    dfsInHelper(node, result);
     return result;
   }
 
-  private static void dfsInTraverse(TreeNode current, List result) {
-    if (current == null) {
+  public static void dfsInHelper(TreeNode node, List<Integer> result) {
+    if (node == null) {
       return;
     }
-    dfsInTraverse(current.left, result);
-    result.add(current.value);
-    dfsInTraverse(current.right, result);
+
+    dfsInHelper(node.left, result);
+    result.add(node.value);
+    dfsInHelper(node.right, result);
   }
 
   /**
-   *  3d. Using recursion, write a function that takes in a tree node and outputs
-   *      an array of values ordered by POST-ORDER DEPTH FIRST traversal.
+   * 3d. Using recursion, write a function that takes in a tree node and outputs
+   * an array of values ordered by POST-ORDER DEPTH FIRST traversal.
    *
-   *  Input: node {TreeNode}
-   *  Output: {List}
+   * Input: node {TreeNode} Output: {List}
    *
-   *      NOTE: Confirm with your answer from problem 2d.
+   * NOTE: Confirm with your answer from problem 2d.
    */
-  public static List dfsPost (TreeNode node) {
+  public static List dfsPost(TreeNode node) {
+    if (node == null) {
+      return new ArrayList();
+    }
     List<Integer> result = new ArrayList<>();
-    dfsPostTraverse(node, result);
+    dfsPostHelper(node, result);
     return result;
   }
 
-  private static void dfsPostTraverse(TreeNode current, List result) {
-    if (current == null) {
+  public static void dfsPostHelper(TreeNode node, List<Integer> result) {
+    if (node == null) {
       return;
     }
-    dfsPostTraverse(current.left, result);
-    dfsPostTraverse(current.right, result);
-    result.add(current.value);
+
+    dfsPostHelper(node.left, result);
+    dfsPostHelper(node.right, result);
+    result.add(node.value);
   }
+
 }
 
 ////////////////////////////////////////////////////////////
-///////////////  DO NOT TOUCH TEST BELOW!!!  ///////////////
+/////////////// DO NOT TOUCH TEST BELOW!!! ///////////////
 ////////////////////////////////////////////////////////////
 
 // use the Main class to run the test cases
@@ -214,31 +207,27 @@ class Main {
 
   public static void main(String[] args) {
 
-    // instantiate the testing of each module by resetting count and printing title of module
-    int[] testCount = {0, 0};
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
+    int[] testCount = { 0, 0 };
     System.out.println("Problem 1 tests");
 
     // tests are in the form as shown
     assertTest(testCount, "able to build tree as indicated in diagram", new Test() {
       public boolean execute() {
 
-        return Problems.sampleTree.value == 4 &&
-                Problems.sampleTree.left.value == 2 &&
-                Problems.sampleTree.left.left.value == 1 &&
-                Problems.sampleTree.left.right.value == 3 &&
-                Problems.sampleTree.right.value == 5 &&
-                Problems.sampleTree.right.right.value == 7 &&
-                Problems.sampleTree.right.right.left.value == 6 &&
-                Problems.sampleTree.right.right.right.value == 8;
+        return Problems.sampleTree.value == 4 && Problems.sampleTree.left.value == 2
+            && Problems.sampleTree.left.left.value == 1 && Problems.sampleTree.left.right.value == 3
+            && Problems.sampleTree.right.value == 5 && Problems.sampleTree.right.right.value == 7
+            && Problems.sampleTree.right.right.left.value == 6 && Problems.sampleTree.right.right.right.value == 8;
       }
     });
 
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("breadth first search tests");
@@ -247,12 +236,11 @@ class Main {
     assertTest(testCount, "able to return values of BST in breadth first manner - [4,2,5,1,3,7,6,8]", new Test() {
       public boolean execute() {
         List<Integer> result = Problems.bfs(Problems.sampleTree);
-        List<Integer> expectation = Arrays.asList(4,2,5,1,3,7,6,8);
+        List<Integer> expectation = Arrays.asList(4, 2, 5, 1, 3, 7, 6, 8);
 
         return result.equals(expectation);
       }
     });
-
 
     assertTest(testCount, "able to return empty array for an empty BST", new Test() {
       public boolean execute() {
@@ -270,22 +258,22 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("dfsPre tests");
 
     // tests are in the form as shown
-    assertTest(testCount, "able to return values of BST in pre-order depth first manner - [4,2,1,3,5,7,6,8]", new Test() {
-      public boolean execute() {
-        List<Integer> result = Problems.dfsPre(Problems.sampleTree);
-        List<Integer> expectation = Arrays.asList(4,2,1,3,5,7,6,8);
+    assertTest(testCount, "able to return values of BST in pre-order depth first manner - [4,2,1,3,5,7,6,8]",
+        new Test() {
+          public boolean execute() {
+            List<Integer> result = Problems.dfsPre(Problems.sampleTree);
+            List<Integer> expectation = Arrays.asList(4, 2, 1, 3, 5, 7, 6, 8);
 
-        return result.equals(expectation);
-      }
-    });
+            return result.equals(expectation);
+          }
+        });
 
     assertTest(testCount, "able to return empty array for an empty BST", new Test() {
       public boolean execute() {
@@ -303,21 +291,22 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("dfsIn tests");
 
     // tests are in the form as shown
-    assertTest(testCount, "able to return values of BST in in-order depth first manner - [1,2,3,4,5,6,7,8]", new Test() {
-      public boolean execute() {
-        List<Integer> result = Problems.dfsIn(Problems.sampleTree);
-        List<Integer> expectation = Arrays.asList(1,2,3,4,5,6,7,8);
+    assertTest(testCount, "able to return values of BST in in-order depth first manner - [1,2,3,4,5,6,7,8]",
+        new Test() {
+          public boolean execute() {
+            List<Integer> result = Problems.dfsIn(Problems.sampleTree);
+            List<Integer> expectation = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
 
-        return result.equals(expectation);
-      }
-    });
+            return result.equals(expectation);
+          }
+        });
 
     assertTest(testCount, "able to return empty array for an empty BST", new Test() {
       public boolean execute() {
@@ -334,21 +323,22 @@ class Main {
     // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
-    // instantiate the testing of each module by resetting count and printing title of module
+    // instantiate the testing of each module by resetting count and printing title
+    // of module
     testCount[0] = 0;
     testCount[1] = 0;
     System.out.println("dfsPost tests");
 
     // tests are in the form as shown
-    assertTest(testCount, "able to return values of BST in post-order depth first manner - [1,3,2,6,8,7,5,4]", new Test() {
-      public boolean execute() {
-        List<Integer> result = Problems.dfsPost(Problems.sampleTree);
-        List<Integer> expectation = Arrays.asList(1,3,2,6,8,7,5,4);
+    assertTest(testCount, "able to return values of BST in post-order depth first manner - [1,3,2,6,8,7,5,4]",
+        new Test() {
+          public boolean execute() {
+            List<Integer> result = Problems.dfsPost(Problems.sampleTree);
+            List<Integer> expectation = Arrays.asList(1, 3, 2, 6, 8, 7, 5, 4);
 
-        return result.equals(expectation);
-      }
-    });
+            return result.equals(expectation);
+          }
+        });
 
     assertTest(testCount, "able to return empty array for an empty BST", new Test() {
       public boolean execute() {
@@ -365,7 +355,6 @@ class Main {
     // // print the result of tests passed for a module
     System.out.println("PASSED: " + testCount[0] + " / " + testCount[1] + "\n\n");
 
-
   }
 
   // do not edit below, this is to wrap the test and check for exceptions
@@ -378,7 +367,8 @@ class Main {
         pass = " true";
         count[0]++;
       }
-    } catch(Exception e) {}
+    } catch (Exception e) {
+    }
     String result = "  " + (count[1] + ")   ").substring(0, 5) + pass + " : " + name;
     System.out.println(result);
   }
